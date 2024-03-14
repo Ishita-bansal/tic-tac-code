@@ -1,0 +1,40 @@
+
+.price-page{
+    width:100%;
+    height:100vh;
+    position: relative;
+    border:4px solid;
+}
+
+.pricenav{
+    width:100%;
+    height:100px;
+    background-color:grey;
+}
+
+.priceimg img{
+    width:100%;
+    height:731px;
+}
+
+.pricebtn{
+    position:absolute;
+    top:60%;
+    left:45%;
+
+}
+
+.pricebtn button{
+    width:200px;
+    height:60px;
+    border-radius:50px;
+    background-color: chocolate;
+    border:none;
+    font-size: 23px;
+}
+
+.pricebtn button:hover{
+    background-color: rgba(0, 0, 0, 0.432);
+    color:white;
+    transform: scale(1.2);
+}
