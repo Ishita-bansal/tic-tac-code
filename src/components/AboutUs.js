@@ -29,33 +29,33 @@ function AboutUs() {
                 of customer service cleanliness and security. Fun Starts Here!!!
             </p>
        </div>
-    <div class="row">
-       <div class="col-lg-6">
+    <div class="row minor">
+       <div class="col-6 ">
        <h1 style={{ textAlign: "left",marginLeft:"250px" , color: "white" }}>Fun Games</h1>
-          <div class='row p-4'>
+          <div class='row p-4 sub-minor'>
              <div class="col-4"><img src={back1} width="200px" height="200px" alt="" /></div>
             <div class="col-4"><img src={back2} width="200px" height="200px" alt="" /></div>
             <div class="col-4"> <img src={back3} width="200px" height="200px" alt="" /></div>
             </div>
        </div>
       
-      <div class="col-lg-6">
+      <div class="col-6 sub-">
       <h1 style={{ textAlign: "right",marginRight:"250px" , color: "white" }}>Birthday Parties</h1>
-      <div class="row p-4">
-          <div class="col-4"> <img src={img4} width="200px" height="200px" alt="" /></div>
-          <div  class="col-4"> <img src={img5} width="200px" height="200px" alt="" /></div>
-          <div class="col-4"> <img src={img6} width="200px" height="200px" alt="" /></div>
+      <div class="row p-4 sub-minor">
+          <div class="col-4"><img src={img4} width="200px" height="200px" alt="" /></div>
+          <div  class="col-4"><img src={img5} width="200px" height="200px" alt="" /></div>
+          <div class="col-4"><img src={img6} width="200px" height="200px" alt="" /></div>
       </div>    
       </div>
     </div> 
     <div class="row">
-       <div class="col-lg-12">
+       <div class="col-12 ">
           <h1 style={{ textAlign: "center", color: "white" }}>Food</h1>
-        <div class="col-lg-6  d-flex justify-content-center align-items-center" style={{width:"100%"}}>
+        <div class="col-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
           <div class="row p-4">
-              <div class="col-4"><img src={img7} width="200px" height="200px" alt="" /></div>
-              <div class="col-4"><img src={img8} width="200px" height="200px" alt="" /></div>
-              <div class="col-4"><img src={img9} width="200px" height="200px" alt="" /></div>
+              <div class="col-4 "><img src={img7} width="200px"  height="200px" alt="" /></div>
+              <div class="col-4 "><img src={img8} width="200px"  height="200px" alt="" /></div>
+              <div class="col-4 "><img src={img9} width="200px"  height="200px" alt="" /></div>
             </div>      
           </div>
        </div>

@@ -3,6 +3,7 @@ import './style.css';
 import {FaBars , FaTimes} from 'react-icons/fa';
 import logo from './images/logo.png';
 import {Link} from 'react-router-dom';
+import pdf from "./images/dummy.pdf";
 
 
 function Navbar(){
@@ -33,7 +34,7 @@ function Navbar(){
              <li className='nav-item'><Link className='customlink' to="/homepage">Home</Link></li>
              <li className='nav-item'><Link className='customlink' to="/AboutUs">About Us</Link></li>
              <li className='nav-item'><Link className='customlink' to="/contactus">Contact Us</Link></li>
-             <li className='nav-item'><Link className='customlink' to="/prices">Prices</Link></li>
+           
             </ul>
            </nav>
        </div>

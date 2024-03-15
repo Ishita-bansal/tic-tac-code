@@ -256,6 +256,42 @@ padding:60px;
    
 }
 
+
+@media  screen and (max-width:2600px) {
+    .minor{
+        width:100%;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .sub-minor{
+        display:flex;
+        justify-content:space-evenly;
+        padding:0px;
+    }
+}
+
+.appdiv{
+    position:relative;
+}
+
+.menubtn{
+     position :absolute;
+     top:30%;
+     left:90%;
+     border-radius:50px;
+     width:50px;
+     height:50px;
+     border:none;
+     background-color:cadetblue;
+}
+
+.menubtn:hover{
+   border:none;
+   background-color: chocolate;
+   transition: 1.2 ease-in-out;
+}
 /* ul li{
     list-style-type: none;
 }
