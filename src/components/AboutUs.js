@@ -1,25 +1,48 @@
+import React, { useRef, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+
+
+import { EffectCoverflow, Pagination } from 'swiper/modules';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./style.css";
-import Carousel from 'react-bootstrap/Carousel';
-import back1 from "./images/game1.jpeg";
-import back2 from "./images/img2.jpeg";
-import back3 from "./images/img3.jpeg";
-import img4 from "./images/img2.jpg";
-import img5 from "./images/download.jpg"
-import img6 from "./images/cake.jpg";
-import img7 from "./images/dish1.jpeg";
-import img8 from "./images/dish2.jpeg";
-import img9 from "./images/dish3.jpeg";
-import img10 from "./images/dish4.jpeg";
-import img11 from "./images/dish6.jpeg";
+// import Carousel from 'react-bootstrap/Carousel';
+import back1 from "./images/game1.JPG";
+import back2 from "./images/game2.jpeg";
+import back3 from "./images/game3.jpeg";
+import img4 from "./images/bday1.jpeg";
+import img5 from "./images/bday2.jpeg"
+import img6 from "./images/bday3.jpeg";
+import img7 from "./images/dish5.JPG";
+import img8 from "./images/dish.jpg";
+import img9 from "./images/noodles.JPG";
+import img10 from "./images/pic6.jpeg";
+import img11 from "./images/pic4.jpeg"
+import img12 from "./images/pic1.jpeg";
+import img13 from "./images/pic2.jpeg";
+import img14 from "./images/pic3.jpeg";
+import img15 from "./images/dish4.jpeg";
+import img16 from "./images/dish6.jpeg";
+import img17 from "./images/dish1.jpeg";
+import img18 from "./images/dish2.jpeg";
+import img19 from "./images/pic5.jpeg";
+import img20 from "./images/pic7.jpeg";
+import img21 from "./images/pic8.jpeg";
+
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 function AboutUs() {
+
+
   return (
 <> 
-    <div style={{backgroundColor:"grey", width:"100%" , height:"100px"}}></div>
-<div class="row mt-5" style={{backgroundColor:"#3f51b5",borderRadius:"150px"}}> 
+    <div style={{backgroundColor:"grey", width:"100%" , height:"120px"}}></div>
+<div class="row mt-5" style={{backgroundColor:"#3f51b5"}}> 
         <div class="col-lg-12 text-center">
-            <h1 style={{color:"white",fontFamily:"cursive"}}>About Us</h1>
+            <h1 className='anim' style={{color:"white",fontFamily:"cursive"}}>About Us</h1>
         </div>
        <div class="col-lg-12" style={{  width:"550px" ,margin:"auto",padding:"30px",color:"white"}}>
             <p> Arcade Zone is South Florida’s newest Indoor Entertainment
@@ -29,65 +52,125 @@ function AboutUs() {
                 of customer service cleanliness and security. Fun Starts Here!!!
             </p>
        </div>
-    <div class="row minor">
-       <div class="col-6 ">
-       <h1 style={{ textAlign: "left",marginLeft:"250px" , color: "white" }}>Fun Games</h1>
-          <div class='row p-4 sub-minor'>
-             <div class="col-4"><img src={back1} width="200px" height="200px" alt="" /></div>
-            <div class="col-4"><img src={back2} width="200px" height="200px" alt="" /></div>
-            <div class="col-4"> <img src={back3} width="200px" height="200px" alt="" /></div>
-            </div>
+<div class="row">
+      <div class="col-lg-12 col-md-12">
+         <h1 className='anim' style={{ textAlign: "center", color: "white" }}>Fun Games</h1>
+          <div class="col-lg-6 col-md-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>  
+             <div class="row p-4 ">
+                <div class="col-lg-4 col-md-4 minor"><img src={back1} max-width="200px" max-height="200px" alt="" /></div>
+                <div class="col-lg-4 col-md-4 minor"><img src={back2} max-width="200px" max-height="200px" alt="" /></div>
+                <div class="col-lg-4 col-md-4 minor"> <img src={back3} max-width="200px" max-height="200px" alt="" /></div>
+              </div>
+           </div> 
        </div>
-      
-      <div class="col-6 sub-">
-      <h1 style={{ textAlign: "right",marginRight:"250px" , color: "white" }}>Birthday Parties</h1>
-      <div class="row p-4 sub-minor">
-          <div class="col-4"><img src={img4} width="200px" height="200px" alt="" /></div>
-          <div  class="col-4"><img src={img5} width="200px" height="200px" alt="" /></div>
-          <div class="col-4"><img src={img6} width="200px" height="200px" alt="" /></div>
-      </div>    
+</div>  
+<div class="row">  
+      <div class="col-lg-12">
+            <h1 className='anim' style={{ textAlign: "center" , color: "white" }}>Birthday Parties</h1>
+          <div class="col-lg-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
+              <div class="row p-4 ">
+                  <div class="col-lg-4 col-md-4  minor" ><img src={img4} max-width="200px" max-height="200px" alt="" /></div>
+                   <div  class="col-lg-4 col-md-4  minor"><img src={img5} max-width="200px" max-height="200px" alt="" /></div>
+                   <div class="col-lg-4  col-md-4 minor"><img src={img6} max-width="200px" max-height="200px" alt="" /></div>
+              </div> 
+          </div>     
       </div>
-    </div> 
+</div>
     <div class="row">
-       <div class="col-12 ">
-          <h1 style={{ textAlign: "center", color: "white" }}>Food</h1>
-        <div class="col-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
+       <div class="col-lg-12 ">
+          <h1 className='anim' style={{ textAlign: "center", color: "white" }}>Food</h1>
+        <div class="col-lg-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
           <div class="row p-4">
-              <div class="col-4 "><img src={img7} width="200px"  height="200px" alt="" /></div>
-              <div class="col-4 "><img src={img8} width="200px"  height="200px" alt="" /></div>
-              <div class="col-4 "><img src={img9} width="200px"  height="200px" alt="" /></div>
+              <div class="col-lg-4 col-md-4  minor"><img src={img7} max-width="200px"  max-height="200px" alt="" /></div>
+              <div class="col-lg-4 col-md-4  minor"><img src={img8} max-width="200px"  max-height="200px" alt="" /></div>
+              <div class="col-lg-4 col-md-4  minor"><img src={img9} max-width="200px"  max-height="200px" alt="" /></div>
             </div>      
           </div>
        </div>
     </div>
 </div> 
+
 <div class="row">
     <div class="col-lg-12 d-flex flex-column p-5 ">
-      <h1 style={{textAlign:"center"}}>Follow Us On Instagram</h1>
+      <h1 style={{textAlign:"center",paddingBottom:"10px"}}>Follow Us On Instagram</h1>
       <FontAwesomeIcon icon={faInstagram}/>
-      <h2 style={{textAlign:"center"}}>@tictacs</h2>
+      <h2 style={{textAlign:"center" ,paddingTop:"10px"}}>@tictacs_theinfinityfun</h2>
     </div>
 </div> 
- <div class="Container fluid">
+<Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={3}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <img src={img10} alt="img" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img11} alt="img"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img12} alt="img"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img13} alt="img" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img14} alt="img"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img15} alt="img"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img16} alt="img"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img17} alt="img"/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img18} alt="img" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img19} alt="img" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img20} alt="img" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={img21} alt="img" />
+        </SwiperSlide>
+      </Swiper>
+
+ {/* <div class="Container">
     <div class="row">
         <div class="col">
           <Carousel>
               <Carousel.Item interval={500}>
-                <img src={img7}  alt="img" className='d-block w-100' />
+                <img src={img10}  alt="img" className='d-block w-100 ' />
               </Carousel.Item>
               <Carousel.Item  interval={500}>
-                <img src={img8}  alt="img"  className='d-block w-100'/>
+                <img src={img11}  alt="img" className='d-block w-100 '  />
               </Carousel.Item>
               <Carousel.Item  interval={500}>
-                <img src={img10}  alt="img" className='d-block w-100'/>
+                <img src={img12}  alt="img" className='d-block w-100 '  />
               </Carousel.Item>
               <Carousel.Item  interval={500}>
-                <img src={img11}  alt="img" className='d-block w-100'/>
+                <img src={img13}  alt="img" className='d-block w-100 '/>
               </Carousel.Item>
           </Carousel>
         </div>
     </div>
- </div>
+ </div> */}
 </>
   );
 }
