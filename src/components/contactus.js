@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { Formik, useFormik } from "formik";
 // import connect from "./images/contact.jpg";
 import connect from "./images/soon.png"
-
+import { useState,useEffect } from "react";
 import "./contactus.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import videos from "./images/tictacscontact.mp4"
@@ -14,8 +14,22 @@ import {
   faGlobe,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
+import {getDatabase,ref,push,onValue} from "firebase/database";
+import {app} from '../firebase'
+
 
 function Contactus() {
+
+   useEffect(()=>{
+      const db= getDatabase(app)
+      const CustomerRef = ref(db,'customers')
+      onValue(CustomerRef,(snapshot)=>{
+        const data =snapshot.val();
+        console.log(data);
+      })
+   },[])
+
+  const [submitting, setSubmitting] = useState(false); 
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const formik = useFormik({
@@ -25,11 +39,26 @@ const formik = useFormik({
       phonenumber:"",
       message:""
     },
-
-    onSubmit : (values)=>{
-      console.log(formik.values);
-      console.log(formik.errors);
-      console.log(formik.touched);
+    onSubmit: async (values) => {
+      setSubmitting(true); 
+      const db = getDatabase(app);
+      try {
+        await push(ref(db, 'customers'),{
+          fullname: values.fullname,
+          email: values.email,
+          phonenumber: values.phonenumber,
+          message: values.message
+        });
+        alert("Form submitted successfully!"); 
+        formik.resetForm();
+ 
+      } 
+      
+      catch (error) {
+        console.error("Error storing data:", error);
+        alert("Error submitting form. Please try again."); 
+      }
+      setSubmitting(false); 
     },
 
      validationSchema:yup.object({
