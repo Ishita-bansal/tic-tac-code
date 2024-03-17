@@ -1,22 +1,38 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe, faEnvelope,faLocation} from '@fortawesome/free-solid-svg-icons'
 import logo from './images/logo.png';
-
+import * as yup from "yup";
+import { useFormik } from "formik";
 function Footer() {
-  return (
+  const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;     
+  const formik = useFormik({
+         initialValues:{
+          email:""
+         },
 
-    <div class="row p-4 d-flex justify-content-between" style={{ color: "white", backgroundColor: "black", width:"100%" , margin:"0px"}} id="foot" >
+         onSubmit : (values)=>{
+          console.log(formik.values);
+          console.log(formik.errors);
+          console.log(formik.touched);
+        },
+    
+         validationSchema:yup.object({
+          email:yup.string().matches(emailRegExp,"Email is not valid").required("this is a required field"),  
+      })
+  });
+  return (  
+    <div class="row pt-5 d-flex justify-content-center " style={{ color: "white", backgroundColor: "black", width:"100%" , margin:"0px"}} id="foot" >
       <div class="col-lg-2 col-md-12  col-sm-12">
         <img src={logo} width="200px" height="200px"  alt=''/>
       </div>
-      <div class="col-lg-1 col-md-3 col-sm-12">
+      <div class="col-lg-2 col-md-3 col-sm-12 d-flex justify-content-center">
         <ul class="list-unstyled foots">
           <li><a href="http://localhost:3000/AboutUs">ABOUT US</a></li>
           <li><a href="http://localhost:3000/contactus">CONTACT US</a></li>
           <li>VISIT US</li>
         </ul>
       </div>
-      <div class="col-lg-4 col-md-3 col-sm-12 ">
+      <div class="col-lg-3 col-md-3 col-sm-12 ">
         <ul class="list-unstyled">
           <li><h5>BUSINESS OPPORTUNITIES</h5></li>
           <li><p>Arcade Zone is expanding very quickly all over the Nation,
@@ -30,11 +46,14 @@ function Footer() {
           <li>MONDAY - SUNDAY</li>
         </ul>
       </div>
-      <div class="col-lg-2 col-md-3 col-sm-12">
+      <div class="col-lg-3 col-md-3 col-sm-12">
         <ul class="list-unstyled">
-          <li>SIGN UP TO OUR NEWSLETTER</li>
-          <form class="d-flex justify-content-center">
-            <input type="email"  placeholder="Your Email"/>
+          <li class="d-flex justify-content-start p-2">SIGN UP TO OUR NEWSLETTER</li>
+          <form onSubmit={formik.handleSubmit} class="d-flex justify-content-center">
+            <input className='footemail' name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} type="email"  placeholder="Your Email"/>
+            {
+              formik.touched && formik.errors.email && <p style={{color:"red"}}>{formik.errors.email}</p>
+            }
             <button className='footbtn' type="submit">Submit</button>
           </form>    
         </ul>

@@ -2,10 +2,10 @@
 // import { FaFontAwesome } from "react-icons/fa";
 // import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import * as yup from "yup";
-
+import { Formik, useFormik } from "formik";
 // import connect from "./images/contact.jpg";
 import connect from "./images/soon.png"
-import { Formik, useFormik } from "formik";
+
 import "./contactus.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import videos from "./images/tictacscontact.mp4"
