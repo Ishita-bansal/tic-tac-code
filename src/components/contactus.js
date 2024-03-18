@@ -17,6 +17,30 @@ import {
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { app } from "../firebase";
 
+const initailValue = {
+  fullname: "",
+  email: "",
+  phonenumber: "",
+  message: "",
+};
+const schema = yup.object({
+  fullname: yup
+    .string()
+    .max(20, "Name must be of less than 10 characters")
+    .required("Required*"),
+  phonenumber: yup
+    .string()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("Required*"),
+  email: yup
+    .string()
+    .matches(emailRegExp, "Email is not valid")
+    .required("Required*"),
+  message: yup
+    .string()
+    .max(40, "message must be less than of 40 characters")
+    .required("Required*"),
+});
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const emailRegExp =
@@ -34,56 +58,35 @@ function Contactus() {
     });
   }, []);
 
+  const onSubmit = async (values, { resetForm }) => {
+    console.log(values);
+    setSubmitting(true);
+    resetForm();
+    const db = getDatabase(app);
+    try {
+      await push(ref(db, "customers"), {
+        fullname: values.fullname,
+        email: values.email,
+        phonenumber: values.phonenumber,
+        message: values.message,
+      });
+      alert("Form submitted successfully!");
+    } catch (error) {
+      console.error("Error storing data:", error);
+      alert("Error submitting form. Please try again.");
+    }
+    setSubmitting(false);
+  };
+
   const formik = useFormik({
-    initialValues: {
-      fullname: "",
-      email: "",
-      phonenumber: "",
-      message: "",
-    },
-    // onSubmit: async(values, { resetForm }) => {
-    //   console.log(values);
-    //   setSubmitting(true);
-    //   resetForm();
-    //   const db = getDatabase(app);
-    //   try {
-    //     await push(ref(db, "customers"), {
-    //       fullname: values.fullname,
-    //       email: values.email,
-    //       phonenumber: values.phonenumber,
-    //       message: values.message,
-    //     });
-    //     alert("Form submitted successfully!");
-
-    //   } catch (error) {
-    //     console.error("Error storing data:", error);
-    //     alert("Error submitting form. Please try again.");
-    //   }
-    //   setSubmitting(false);
-    // },
-
-    validationSchema: yup.object({
-      fullname: yup
-        .string()
-        .max(20, "Name must be of less than 10 characters")
-        .required("Required*"),
-      phonenumber: yup
-        .string()
-        .matches(phoneRegExp, "Phone number is not valid")
-        .required("Required*"),
-      email: yup
-        .string()
-        .matches(emailRegExp, "Email is not valid")
-        .required("Required*"),
-      message: yup
-        .string()
-        .max(40, "message must be less than of 40 characters")
-        .required("Required*"),
-    }),
+    initialValues: initailValue,
+    onSubmit: onSubmit,
+    validationSchema: schema,
+    enableReinitialize:true
   });
 
-  // const { values ,handleSubmit} = formik;
-  // console.log('values==>',values)
+  const { values, handleSubmit, setFieldValues } = formik;
+ 
   return (
     <>
       <div className="mainDiv">
@@ -106,7 +109,7 @@ function Contactus() {
               textTransform: "capitalize",
             }}
           >
-            {" "}
+          
             {data?.contactcontent?.heading2}{" "}
           </h1>
           <p style={{ paddingLeft: "50px" }}>{data?.contactcontent?.desc}</p>
@@ -167,14 +170,16 @@ function Contactus() {
             <h1 style={{ textTransform: "capitalize" }}>
               {data?.contactcontent?.formhead}
             </h1>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <div className="formitems">
                 <input
                   type="text"
                   name="fullname"
-                  value={formik.values.fullname}
+                  value={values.fullname}
+                  onChange={(e) => {
+                    setFieldValue("fullname", e?.target?.value);
+                  }}
                   onBlur={formik.handleBlur}
-               
                   placeholder={data?.contactcontent?.custname}
                   style={{ textTransform: "capitalize" }}
                 />
@@ -190,9 +195,8 @@ function Contactus() {
                 <input
                   type="number"
                   name="phonenumber"
-                  value={formik.values.phonenumber}
+                  value={values.phonenumber}
                   onBlur={formik.handleBlur}
-                 
                   placeholder={data?.contactcontent?.custphone}
                   style={{ textTransform: "capitalize" }}
                 />
@@ -208,9 +212,8 @@ function Contactus() {
                 <input
                   type="email"
                   name="email"
-                  values={formik.values.email}
+                  values={values.email}
                   onBlur={formik.handleBlur}
-                 
                   placeholder={data?.contactcontent?.custemail}
                   style={{ textTransform: "capitalize" }}
                 />
@@ -226,9 +229,8 @@ function Contactus() {
                 <textarea
                   width="184px"
                   name="message"
-                  value={formik.values.message}
+                  value={values.message}
                   onBlur={formik.handleBlur}
-                 
                   height="40px"
                   style={{ resize: "horizontal", textTransform: "capitalize" }}
                   placeholder={data?.contactcontent?.custmessage}
