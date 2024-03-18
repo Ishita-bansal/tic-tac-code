@@ -17,6 +17,11 @@ import {
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { app } from "../firebase";
 
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const emailRegExp =
+  /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const initailValue = {
   fullname: "",
   email: "",
@@ -41,10 +46,7 @@ const schema = yup.object({
     .max(40, "message must be less than of 40 characters")
     .required("Required*"),
 });
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-const emailRegExp =
-  /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
 
 function Contactus() {
   const [submitting, setSubmitting] = useState(false);
@@ -58,18 +60,21 @@ function Contactus() {
     });
   }, []);
 
-  const onSubmit = async (values, { resetForm }) => {
+  const onSubmit = async (values, {resetForm}) => {
     console.log(values);
     setSubmitting(true);
-    resetForm();
-    const db = getDatabase(app);
+    // resetForm();
+    // const db = getDatabase(app);
     try {
+      await schema.validate(values,{abortEarly:false});
+      const db = getDatabase(app);
       await push(ref(db, "customers"), {
         fullname: values.fullname,
         email: values.email,
         phonenumber: values.phonenumber,
         message: values.message,
       });
+      resetForm();
       alert("Form submitted successfully!");
     } catch (error) {
       console.error("Error storing data:", error);
@@ -85,7 +90,7 @@ function Contactus() {
     enableReinitialize:true
   });
 
-  const { values, handleSubmit, setFieldValues } = formik;
+  const { values, handleSubmit,handleBlur,errors,touched,setFieldValue} = formik;
  
   return (
     <>
@@ -179,13 +184,13 @@ function Contactus() {
                   onChange={(e) => {
                     setFieldValue("fullname", e?.target?.value);
                   }}
-                  onBlur={formik.handleBlur}
+                  onBlur={handleBlur}
                   placeholder={data?.contactcontent?.custname}
                   style={{ textTransform: "capitalize" }}
                 />
               </div>
-              {formik.touched && formik.errors.fullname ? (
-                <p className="showerror">{formik.errors.fullname}</p>
+              {touched.fullname && errors.fullname ? (
+                <p className="showerror">{errors.fullname}</p>
               ) : (
                 <p className="showerror" style={{ visibility: "hidden" }}>
                   text
@@ -196,13 +201,14 @@ function Contactus() {
                   type="number"
                   name="phonenumber"
                   value={values.phonenumber}
-                  onBlur={formik.handleBlur}
+                  onBlur={handleBlur}
+                  onChange={ (e)=>{setFieldValue("phonenumber",e.target.value)}}
                   placeholder={data?.contactcontent?.custphone}
                   style={{ textTransform: "capitalize" }}
                 />
               </div>
-              {formik.touched && formik.errors.phonenumber ? (
-                <p className="showerror">{formik.errors.phonenumber}</p>
+              {touched.phonenumber && errors.phonenumber ? (
+                <p className="showerror">{errors.phonenumber}</p>
               ) : (
                 <p className="showerror" style={{ visibility: "hidden" }}>
                   text{" "}
@@ -213,13 +219,14 @@ function Contactus() {
                   type="email"
                   name="email"
                   values={values.email}
-                  onBlur={formik.handleBlur}
+                  onBlur={handleBlur}
+                  onChange={(e)=>{setFieldValue("email",e.target.value)}}
                   placeholder={data?.contactcontent?.custemail}
-                  style={{ textTransform: "capitalize" }}
+                  
                 />
               </div>
-              {formik.touched && formik.errors.email ? (
-                <p className="showerror">{formik.errors.email}</p>
+              {touched.email &&  errors.email ? (
+                <p className="showerror">{errors.email}</p>
               ) : (
                 <p className="showerror" style={{ visibility: "hidden" }}>
                   text
@@ -230,14 +237,15 @@ function Contactus() {
                   width="184px"
                   name="message"
                   value={values.message}
-                  onBlur={formik.handleBlur}
+                  onBlur={handleBlur}
                   height="40px"
+                  onChange={(e)=>setFieldValue("message",e.target.value)}
                   style={{ resize: "horizontal", textTransform: "capitalize" }}
                   placeholder={data?.contactcontent?.custmessage}
                 ></textarea>
               </div>
-              {formik.touched && formik.errors.message ? (
-                <p className="showerror">{formik.errors.message}</p>
+              {touched.message && errors.message ? (
+                <p className="showerror">{errors.message}</p>
               ) : (
                 <p className="showerror" style={{ visibility: "hidden" }}>
                   text
