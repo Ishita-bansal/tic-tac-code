@@ -1,12 +1,24 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './style.css';
 import {FaBars , FaTimes} from 'react-icons/fa';
 import logo from './images/logo.png';
 import {Link} from 'react-router-dom';
-
+import { app } from "../firebase";
+import { getDatabase, ref, push, onValue } from "firebase/database";
 
 
 function Navbar(){
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    const db = getDatabase(app);
+    const CustomerRef = ref(db, "navbar");
+    onValue(CustomerRef, (snapshot) => {
+      const data = snapshot.val();
+      setData(data);
+    });
+  }, []);
+
   const [click,setClick] = useState(false);
   const [color,setColor] = useState(false);
    const changeColor = () =>{
@@ -31,9 +43,9 @@ function Navbar(){
                : <FaBars size={30} style={{color:'#ffffff'}}/>}  
             </div>
             <ul className={click ? "nav-menu active" : "nav-menu"}>
-             <li className='nav-item'><Link className='customlink' to="/homepage">Home</Link></li>
-             <li className='nav-item'><Link className='customlink' to="/AboutUs">About Us</Link></li>
-             <li className='nav-item'><Link className='customlink' to="/contactus">Contact Us</Link></li>
+             <li className='nav-item'><Link className='customlink' to="/homepage" style={{textTransform:"capitalize"}}>{data?.nav1}</Link></li>
+             <li className='nav-item'><Link className='customlink' to="/AboutUs" style={{textTransform:"capitalize"}}>{data?.nav2}</Link></li>
+             <li className='nav-item'><Link className='customlink' to="/contactus" style={{textTransform:"capitalize"}}>{data?.nav3}</Link></li>
             </ul>
            </nav>
        </div>

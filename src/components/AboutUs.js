@@ -1,17 +1,18 @@
-import React, { useRef, useState} from 'react';
+import React, { useRef, useState,useEffect} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 
-
+import { app } from "../firebase";
+import { getDatabase, ref, push, onValue } from "firebase/database";
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./style.css";
 // import Carousel from 'react-bootstrap/Carousel';
-import back1 from "./images/game1.JPG";
+import back1 from "./images/game1.jpg";
 import back2 from "./images/game2.jpeg";
 import back3 from "./images/game3.jpeg";
 import img4 from "./images/bday1.jpeg";
@@ -35,24 +36,30 @@ import img21 from "./images/pic8.jpeg";
 
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 function AboutUs() {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    const db = getDatabase(app);
+    const CustomerRef = ref(db, "aboutus");
+    onValue(CustomerRef, (snapshot) => {
+      const data = snapshot.val();
+      setData(data);
+    });
+  }, []);
+
   return (
 <> 
     <div style={{backgroundColor:"grey", width:"100%" , height:"120px"}}></div>
 <div class="row mt-5" style={{backgroundColor:"#3f51b5"}}> 
         <div class="col-lg-12 text-center">
-            <h1 className='aboutanim' style={{color:"white",fontFamily:"cursive"}}>About Us</h1>
+            <h1 className='aboutanim' style={{color:"white",fontFamily:"cursive",textTransform:"capitalize"}}>{data?.aboutcontent?.heading}</h1>
         </div>
        <div class="col-lg-12" style={{  width:"550px" ,margin:"auto",padding:"30px",color:"white"}}>
-            <p> Arcade Zone is South Florida’s newest Indoor Entertainment
-                Venue.Highlights include top of the line Arcade Games, Redemption Games
-                with the best selection of prizes and the newest and most modern
-                location based Virtual Reality Entertainment, offering the highest level
-                of customer service cleanliness and security. Fun Starts Here!!!
-            </p>
+            <p>{data?.aboutcontent?.desc}</p>
        </div>
 <div class="row">
       <div class="col-lg-12 col-md-12">
-         <h1 className='aboutanim' style={{ textAlign: "center", color: "white" }}>Fun Games</h1>
+         <h1 className='aboutanim' style={{ textAlign: "center", color: "white",textTransform:"capitalize"}}>{data?.aboutcontent?.heading2}</h1>
           <div class="col-lg-6 col-md-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>  
              <div class="row p-4 ">
                 <div class="col-lg-4 col-md-4 minor"><img src={back1} max-width="200px" max-height="200px" alt="" /></div>
@@ -64,7 +71,7 @@ function AboutUs() {
 </div>  
 <div class="row">  
       <div class="col-lg-12">
-            <h1 className='aboutanim' style={{ textAlign: "center" , color: "white" }}>Birthday Parties</h1>
+            <h1 className='aboutanim' style={{ textAlign: "center" , color: "white",textTransform:"capitalize" }}>{data?.aboutcontent?.heading3}</h1>
           <div class="col-lg-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
               <div class="row p-4 ">
                   <div class="col-lg-4 col-md-4  minor" ><img src={img4} max-width="200px" max-height="200px" alt="" /></div>
@@ -76,7 +83,7 @@ function AboutUs() {
 </div>
     <div class="row">
        <div class="col-lg-12 ">
-          <h1 className='aboutanim' style={{ textAlign: "center", color: "white" }}>Food</h1>
+          <h1 className='aboutanim' style={{ textAlign: "center", color: "white",textTransform:"capitalize" }}>{data?.aboutcontent?.heading4}</h1>
         <div class="col-lg-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
           <div class="row p-4">
               <div class="col-lg-4 col-md-4  minor"><img src={img7} max-width="200px"  max-height="200px" alt="" /></div>
@@ -90,9 +97,9 @@ function AboutUs() {
 
 <div class="row">
     <div class="col-lg-12 d-flex flex-column p-5 ">
-      <h1 style={{textAlign:"center",paddingBottom:"10px"}}>Follow Us On Instagram</h1>
+      <h1 style={{textAlign:"center",paddingBottom:"10px",textTransform:"capitalize"}}>{data?.aboutcontent?.heading5}</h1>
       <FontAwesomeIcon icon={faInstagram}/>
-      <h2 style={{textAlign:"center" ,paddingTop:"10px"}}>@tictacs_theinfinityfun</h2>
+      <h2 style={{textAlign:"center" ,paddingTop:"10px"}}>{data?.aboutcontent?.heading6}</h2>
   </div>
 </div> 
 <Swiper
