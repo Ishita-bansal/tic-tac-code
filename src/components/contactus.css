@@ -134,10 +134,18 @@ form{
 }
 
 .formbtn button{
-    width:100px;
-    min-height:42px;
-    border:#f2f2f2 1px solid;
-    background: linear-gradient(135deg,#028692,pink);
+    padding:14px 40px;
+    color:#fff;
+    background:linear-gradient(45deg,#df4881,#c430d7);
+    font-size:14px;
+    border-radius:30px;
+    border-top-right-radius: 0px;
+    max-width:150px;
+    border:none;
+}
+
+.formbtn button:hover{
+    border-top-right-radius: 30px;
 }
 
 .showerror{
@@ -173,6 +181,11 @@ form{
         left:15%;
    }
 }
+
+.last-map{
+    width:100%;
+ 
+ }
 
 /* @media screen and (min-width:570px)  and (max-width:743px){
     .col-md-6{

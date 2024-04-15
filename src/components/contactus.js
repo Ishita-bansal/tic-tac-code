@@ -96,9 +96,9 @@ function Contactus() {
     <>
       <div className="mainDiv">
         <div className="overlay"></div>
-        <video autoPlay loop muted className="background-video">
+        {/* <video autoPlay loop muted className="background-video">
           <source src={videos} type="video/mp4" />
-        </video>
+        </video> */}
         <div className="mainDiv-content">
           <h1 className="anim" style={{ textTransform: "uppercase" }}>
             {data?.contactcontent?.heading}
@@ -252,7 +252,7 @@ function Contactus() {
                 </p>
               )}
               <div className="formbtn">
-                <button type="submit" style={{ textTransform: "capitalize" }}>
+                <button className="contactbtn" type="submit" style={{ textTransform: "capitalize" }}>
                   {data?.contactcontent?.btntitle}
                 </button>
               </div>
@@ -260,8 +260,21 @@ function Contactus() {
           </div>
         </div>
       </div>
+      <div className="last-map" style={{ width:'100%' }}>
+    <iframe
+      title="Oh My Game! Location"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d27445.75254619908!2d76.7026142!3d30.69817945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1713167424862!5m2!1sen!2sin"
+      width="100%"
+      height="600px"
+      style={{ border: 0,width:"100%" }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    />
+    </div>
     </>
   );
 }
+
 
 export default Contactus;
