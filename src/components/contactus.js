@@ -15,7 +15,7 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase, ref, push, onValue } from "firebase/database";
-import { app } from "../firebase";
+import { realtimeapp } from "../firebase";
 
 
 const phoneRegExp =
@@ -52,7 +52,7 @@ function Contactus() {
   const [submitting, setSubmitting] = useState(false);
   const [data, setdata] = useState();
   useEffect(() => {
-    const db = getDatabase(app);
+    const db = getDatabase(realtimeapp);
     const CustomerRef = ref(db, "contactus");
     onValue(CustomerRef, (snapshot) => {
       const data = snapshot.val();
@@ -67,7 +67,7 @@ function Contactus() {
     // const db = getDatabase(app);
     try {
       await schema.validate(values,{abortEarly:false});
-      const db = getDatabase(app);
+      const db = getDatabase(realtimeapp);
       await push(ref(db, "customers"), {
         fullname: values.fullname,
         email: values.email,

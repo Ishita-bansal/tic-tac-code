@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 
-import { app } from "../firebase";
+import { realtimeapp } from "../firebase";
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
@@ -39,7 +39,7 @@ function AboutUs() {
   const [data, setData] = useState();
 
   useEffect(() => {
-    const db = getDatabase(app);
+    const db = getDatabase(realtimeapp);
     const CustomerRef = ref(db, "aboutus");
     onValue(CustomerRef, (snapshot) => {
       const data = snapshot.val();

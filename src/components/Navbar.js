@@ -3,15 +3,15 @@ import './style.css';
 import {FaBars , FaTimes} from 'react-icons/fa';
 import logo from './images/logo.png';
 import {Link} from 'react-router-dom';
-import { app } from "../firebase";
-import { getDatabase, ref, push, onValue } from "firebase/database";
+import { realtimeapp } from "../firebase";
+import { getDatabase, ref,  onValue } from "firebase/database";
 
 
 function Navbar(){
   const [data, setData] = useState();
 
   useEffect(() => {
-    const db = getDatabase(app);
+    const db = getDatabase(realtimeapp);
     const CustomerRef = ref(db, "navbar");
     onValue(CustomerRef, (snapshot) => {
       const data = snapshot.val();
@@ -46,6 +46,7 @@ function Navbar(){
              <li className='nav-item'><Link className='customlink' to="/homepage" style={{textTransform:"capitalize"}}>{data?.nav1}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/AboutUs" style={{textTransform:"capitalize"}}>{data?.nav2}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/contactus" style={{textTransform:"capitalize"}}>{data?.nav3}</Link></li>
+             <li className='nav-item'><Link className='customlink' to="/Blog" style={{textTransform:"capitalize"}}>Blog</Link></li>
             </ul>
            </nav>
        </div>

@@ -1,5 +1,5 @@
 
-import { initializeApp } from "firebase/app";
+import { initializeApp as initializeRealtimeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDIqdCeUCmUNBo-gYMXmRbXAPaYUWnCQPo",
@@ -12,4 +12,4 @@ const firebaseConfig = {
 };
 
 
-export const app = initializeApp(firebaseConfig);
+export const realtimeapp =  initializeRealtimeApp(firebaseConfig);

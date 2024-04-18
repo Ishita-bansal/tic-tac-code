@@ -8,14 +8,14 @@ import {
 import logo from "./images/logo.png";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { app } from "../firebase";
-import { getDatabase, ref, push, onValue } from "firebase/database";
+import { realtimeapp } from "../firebase";
+import { getDatabase, ref,  onValue } from "firebase/database";
 
 function Footer() {
   const [data, setData] = useState();
 
   useEffect(() => {
-    const db = getDatabase(app);
+    const db = getDatabase(realtimeapp);
     const CustomerRef = ref(db, "footer");
     onValue(CustomerRef, (snapshot) => {
       const data = snapshot.val();
