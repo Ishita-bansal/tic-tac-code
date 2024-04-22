@@ -8,20 +8,50 @@ import {
 import logo from "./images/logo.png";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { realtimeapp } from "../firebase";
-import { getDatabase, ref,  onValue } from "firebase/database";
+import { app } from "../firebase";
+import {
+  collection,
+  getFirestore,
+  addDoc,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+const firestore = getFirestore(app);
 
 function Footer() {
-  const [data, setData] = useState();
+  const [reciveData, setReciveData] = useState([]);
+
+
+  const getdocument = async () => {
+    try {
+      const collectionRef = collection(firestore, "footer");
+      const querySnapshot = await getDocs(collectionRef);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      return data;
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+      return [];
+    }
+  };
 
   useEffect(() => {
-    const db = getDatabase(realtimeapp);
-    const CustomerRef = ref(db, "footer");
-    onValue(CustomerRef, (snapshot) => {
-      const data = snapshot.val();
-      setData(data);
-    });
+    const fetchData = async () => {
+      try {
+        const data = await getdocument();
+        setReciveData(data);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+      }
+    };
+    fetchData();
   }, []);
+
+  
 
   const emailRegExp =
     /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -60,37 +90,37 @@ function Footer() {
       <div class="col-lg-2 col-md-3 col-sm-12 d-flex justify-content-center">
         <ul class="list-unstyled foots">
           <li style={{textTransform:"uppercase"}}>
-            <a href="http://localhost:3000/AboutUs">{data?.line1?.data1}</a>
+            <a href="http://localhost:3000/AboutUs">{reciveData[0]?.data1}</a>
           </li>
           <li style={{textTransform:"uppercase"}}>
-            <a href="http://localhost:3000/contactus">{data?.line1?.data2}</a>
+            <a href="http://localhost:3000/contactus">{reciveData[0]?.data2}</a>
           </li>
-          <li style={{textTransform:"uppercase"}}>{data?.line1.data3}</li>
+          <li style={{textTransform:"uppercase"}}>{reciveData[0]?.data3}</li>
         </ul>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 ">
         <ul class="list-unstyled">
           <li>
-            <h5  style={{textTransform:"uppercase"}}>{data?.bussiness?.title}</h5>
+            <h5  style={{textTransform:"uppercase"}}>{reciveData[0]?.title}</h5>
           </li>
           <li>
             <p>
-            {data?.bussiness?.desc}
+            {reciveData[0]?.desc}
             </p>
           </li>
         </ul>
       </div>
       <div class="col-lg-2 col-md-3 col-sm-12">
         <ul class="list-unstyled">
-          <li  style={{textTransform:"uppercase"}}>{data?.line3?.title}</li>
-          <li  style={{textTransform:"uppercase"}}>{data?.line3?.time}</li>
-          <li  style={{textTransform:"uppercase"}}>{data?.line3?.day}</li>
+          <li  style={{textTransform:"uppercase"}}>{reciveData[0]?.timetitle}</li>
+          <li  style={{textTransform:"uppercase"}}>{reciveData[0]?.time}</li>
+          <li  style={{textTransform:"uppercase"}}>{reciveData[0]?.day}</li>
         </ul>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12">
         <ul class="list-unstyled">
           <li class="d-flex justify-content-start p-2" style={{textTransform:"uppercase"}} >
-            {data?.line4?.title}
+            {reciveData[0]?.title2}
           </li>
           <form
             onSubmit={formik.handleSubmit}
@@ -102,13 +132,13 @@ function Footer() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               type="email"
-              placeholder={data?.line4?.input}
+              placeholder={reciveData[0]?.input}
             />
             {formik.touched && formik.errors.email && (
               <p style={{ color: "red" }}>{formik.errors.email}</p>
             )}
             <button className="footbtn" type="submit"  style={{textTransform:"capitalize"}}>
-             {data?.line4?.btn}
+             {reciveData[0]?.btn}
             </button>
           </form>
         </ul>
@@ -126,7 +156,7 @@ function Footer() {
             <FontAwesomeIcon icon={faLocation} />
           </button>
         </div>
-        <p style={{textTransform:"capitalize"}}>{data?.row2?.title}</p>
+        <p style={{textTransform:"capitalize"}}>{reciveData[0]?.title3}</p>
       </div>
     </div>
   );

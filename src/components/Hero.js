@@ -1,25 +1,53 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import video from "./images/tictacs.mp4";
-import { realtimeapp } from "../firebase";
-import { getDatabase, ref, push, onValue } from "firebase/database";
 import img1 from "./images/home1.jpeg";
 import img2 from "./images/home2.jpeg";
 import img3 from "./images/home3.jpeg";
+import { app } from "../firebase";
+import {
+  collection,
+  getFirestore,
+  addDoc,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+const firestore = getFirestore(app);
 
 function Hero() {
-  const [data, setData] = useState();
+  const [reciveData, setReciveData] = useState([]);
+
+
+  const getdocument = async () => {
+    try {
+      const collectionRef = collection(firestore, "Hero");
+      const querySnapshot = await getDocs(collectionRef);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      return data;
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+      return [];
+    }
+  };
 
   useEffect(() => {
-    const db = getDatabase(realtimeapp);
-    const CustomerRef = ref(db, "hero");
-    onValue(CustomerRef, (snapshot) => {
-      const data = snapshot.val();
-      setData(data);
-    });
+    const fetchData = async () => {
+      try {
+        const data = await getdocument();
+        setReciveData(data);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+      }
+    };
+    fetchData();
   }, []);
 
-  console.log("data==>", data);
+console.log("-=-=--=-==--==",reciveData[0]?.title1);
   return (
     <>
       <div className="hero">
@@ -29,17 +57,17 @@ function Hero() {
       </video> */}
         <div className="hero-content">
           <h1 className="anim" style={{ textTransform: "capitalize" }}>
-            {data?.main_content?.title}
+            {reciveData[0]?.title1}
           </h1>
           <p className="anim" style={{ textTransform: "capitalize" }}>
-            {data?.main_content?.description}
+            {reciveData[0]?.description}
           </p>
           <button
             href="/"
             className="hero-btn  anim"
             style={{ textTransform: "capitalize" }}
           >
-            {data?.main_content?.button_title}
+            {reciveData[0]?.button_title}
           </button>
         </div>
       </div>
@@ -53,29 +81,16 @@ function Hero() {
           <div class="col-lg-6" className="hero-content2-right">
             <h2 className="hero-content2-right-title">
               {" "}
-              Let the Adventure Begin: Your Ultimate Kids' Wonderland!
+              {reciveData[0]?.title2}
             </h2>
-            Experience a wonderland of joy and excitement at Oh My Game! Our
-            mission is to craft the ultimate haven for kids, parents, and
-            everyone in between. Dive into a world of endless fun where every
-            moment is a new adventure waiting to unfold. Oh My Game! boasts an
-            array of thrilling activities and cutting-edge gaming options to
-            awaken your inner child and ignite your sense of adventure. From a
-            fully stocked Gaming Arcade brimming with machine-operated delights
-            to an adrenaline-pumping Laser Tag Playground capable of hosting up
-            to 12 players at once, there's never a dull moment. And when you've
-            worked up an appetite from all the excitement, our in-house cafe
-            awaits, serving up delectable delights to satisfy every craving.
-            It's more than just a play zone; it's an all-encompassing hub of
-            entertainment and joy where the fun knows no bounds. Come and
-            discover the magic of Oh My Game!
+           {reciveData[0]?.desc2}
           </div>
         </div>
       </div>
       <div className="hero-content3">
         <div className="hero-content3-part1">
           <h1 style={{ color: "white", padding: "20px", textAlign: "center" }}>
-            EXPERIENCE THE THRILLS
+          {reciveData[0]?.title3}
           </h1>
         </div>
         <div class="row" className="hero-content3-part2">

@@ -4,9 +4,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-
-import { realtimeapp } from "../firebase";
-import { getDatabase, ref, push, onValue } from "firebase/database";
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -33,18 +30,51 @@ import img18 from "./images/dish2.jpeg";
 import img19 from "./images/pic5.jpeg";
 import img20 from "./images/pic7.jpeg";
 import img21 from "./images/pic8.jpeg";
-
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { app } from "../firebase";
+import {
+  collection,
+  getFirestore,
+  addDoc,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+const firestore = getFirestore(app);
+
+
+
+
+
 function AboutUs() {
   const [data, setData] = useState();
+  const [reciveData, setReciveData] = useState([]);
+  const getdocument = async () => {
+    try {
+      const collectionRef = collection(firestore, "Aboutus");
+      const querySnapshot = await getDocs(collectionRef);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      return data;
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+      return [];
+    }
+  };
 
   useEffect(() => {
-    const db = getDatabase(realtimeapp);
-    const CustomerRef = ref(db, "aboutus");
-    onValue(CustomerRef, (snapshot) => {
-      const data = snapshot.val();
-      setData(data);
-    });
+    const fetchData = async () => {
+      try {
+        const data = await getdocument();
+        setReciveData(data);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -52,14 +82,14 @@ function AboutUs() {
     <div style={{backgroundColor:"grey", width:"100%" , height:"120px"}}></div>
 <div class="row mt-5" style={{backgroundColor:"#3f51b5"}}> 
         <div class="col-lg-12 text-center">
-            <h1 className='aboutanim' style={{color:"white",fontFamily:"cursive",textTransform:"capitalize"}}>{data?.aboutcontent?.heading}</h1>
+            <h1 className='aboutanim' style={{color:"white",fontFamily:"cursive",textTransform:"capitalize"}}>{reciveData[0]?.heading}</h1>
         </div>
        <div class="col-lg-12" style={{  width:"550px" ,margin:"auto",padding:"30px",color:"white"}}>
-            <p>{data?.aboutcontent?.desc}</p>
+            <p>{reciveData[0]?.desc}</p>
        </div>
 <div class="row">
       <div class="col-lg-12 col-md-12">
-         <h1 className='aboutanim' style={{ textAlign: "center", color: "white",textTransform:"capitalize"}}>{data?.aboutcontent?.heading2}</h1>
+         <h1 className='aboutanim' style={{ textAlign: "center", color: "white",textTransform:"capitalize"}}>{reciveData[0]?.heading2}</h1>
           <div class="col-lg-6 col-md-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>  
              <div class="row p-4 ">
                 <div class="col-lg-4 col-md-4 minor"><img src={back1} max-width="200px" max-height="200px" alt="" /></div>
@@ -71,7 +101,7 @@ function AboutUs() {
 </div>  
 <div class="row">  
       <div class="col-lg-12">
-            <h1 className='aboutanim' style={{ textAlign: "center" , color: "white",textTransform:"capitalize" }}>{data?.aboutcontent?.heading3}</h1>
+            <h1 className='aboutanim' style={{ textAlign: "center" , color: "white",textTransform:"capitalize" }}>{reciveData[0]?.heading3}</h1>
           <div class="col-lg-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
               <div class="row p-4 ">
                   <div class="col-lg-4 col-md-4  minor" ><img src={img4} max-width="200px" max-height="200px" alt="" /></div>
@@ -83,7 +113,7 @@ function AboutUs() {
 </div>
     <div class="row">
        <div class="col-lg-12 ">
-          <h1 className='aboutanim' style={{ textAlign: "center", color: "white",textTransform:"capitalize" }}>{data?.aboutcontent?.heading4}</h1>
+          <h1 className='aboutanim' style={{ textAlign: "center", color: "white",textTransform:"capitalize" }}>{reciveData[0]?.heading4}</h1>
         <div class="col-lg-6 d-flex justify-content-center align-items-center" style={{width:"100%"}}>
           <div class="row p-4">
               <div class="col-lg-4 col-md-4  minor"><img src={img7} max-width="200px"  max-height="200px" alt="" /></div>
@@ -97,9 +127,9 @@ function AboutUs() {
 
 <div class="row">
     <div class="col-lg-12 d-flex flex-column p-5 ">
-      <h1 style={{textAlign:"center",paddingBottom:"10px",textTransform:"capitalize"}}>{data?.aboutcontent?.heading5}</h1>
+      <h1 style={{textAlign:"center",paddingBottom:"10px",textTransform:"capitalize"}}>{reciveData[0]?.heading5}</h1>
       <FontAwesomeIcon icon={faInstagram}/>
-      <h2 style={{textAlign:"center" ,paddingTop:"10px"}}>{data?.aboutcontent?.heading6}</h2>
+      <h2 style={{textAlign:"center" ,paddingTop:"10px"}}>{reciveData[0]?.heading6}</h2>
   </div>
 </div> 
 <Swiper

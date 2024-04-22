@@ -14,8 +14,8 @@ import {
   faGlobe,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { getDatabase, ref, push, onValue } from "firebase/database";
-import { realtimeapp } from "../firebase";
+// import { getDatabase, ref, push, onValue } from "firebase/database";
+// import { realtimeapp } from "../firebase";
 
 
 const phoneRegExp =
@@ -49,38 +49,38 @@ const schema = yup.object({
 
 
 function Contactus() {
-  const [submitting, setSubmitting] = useState(false);
+  // const [submitting, setSubmitting] = useState(false);
   const [data, setdata] = useState();
-  useEffect(() => {
-    const db = getDatabase(realtimeapp);
-    const CustomerRef = ref(db, "contactus");
-    onValue(CustomerRef, (snapshot) => {
-      const data = snapshot.val();
-      setdata(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const db = getDatabase(realtimeapp);
+  //   const CustomerRef = ref(db, "contactus");
+  //   onValue(CustomerRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     setdata(data);
+  //   });
+  // }, []);
 
   const onSubmit = async (values, {resetForm}) => {
     console.log(values);
-    setSubmitting(true);
+    // setSubmitting(true);
     // resetForm();
     // const db = getDatabase(app);
-    try {
-      await schema.validate(values,{abortEarly:false});
-      const db = getDatabase(realtimeapp);
-      await push(ref(db, "customers"), {
-        fullname: values.fullname,
-        email: values.email,
-        phonenumber: values.phonenumber,
-        message: values.message,
-      });
-      resetForm();
-      alert("Form submitted successfully!");
-    } catch (error) {
-      console.error("Error storing data:", error);
-      alert("Error submitting form. Please try again.");
-    }
-    setSubmitting(false);
+  //   try {
+  //     await schema.validate(values,{abortEarly:false});
+  //     const db = getDatabase(realtimeapp);
+  //     await push(ref(db, "customers"), {
+  //       fullname: values.fullname,
+  //       email: values.email,
+  //       phonenumber: values.phonenumber,
+  //       message: values.message,
+  //     });
+  //     resetForm();
+  //     alert("Form submitted successfully!");
+  //   } catch (error) {
+  //     console.error("Error storing data:", error);
+  //     alert("Error submitting form. Please try again.");
+  //   }
+  //   setSubmitting(false);
   };
 
   const formik = useFormik({
