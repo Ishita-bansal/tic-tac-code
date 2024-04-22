@@ -14,8 +14,17 @@ import {
   faGlobe,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-// import { getDatabase, ref, push, onValue } from "firebase/database";
-// import { realtimeapp } from "../firebase";
+import { app } from "../firebase";
+import {
+  collection,
+  getFirestore,
+  addDoc,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+const firestore = getFirestore(app);
 
 
 const phoneRegExp =
@@ -50,37 +59,58 @@ const schema = yup.object({
 
 function Contactus() {
   // const [submitting, setSubmitting] = useState(false);
-  const [data, setdata] = useState();
-  // useEffect(() => {
-  //   const db = getDatabase(realtimeapp);
-  //   const CustomerRef = ref(db, "contactus");
-  //   onValue(CustomerRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     setdata(data);
-  //   });
-  // }, []);
+ 
+  const [reciveData, setReciveData] = useState([]);
+
+
+  const getdocument = async () => {
+    try {
+      const collectionRef = collection(firestore, "contactus");
+      const querySnapshot = await getDocs(collectionRef);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      return data;
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getdocument();
+        setReciveData(data);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const writeData = async() =>{
+    try{
+      const result = await addDoc(collection(firestore, "customers"), {
+        fullname: values.fullname,
+        email: values.email,
+        phonenumber: values.phonenumber,
+       message: values.message,
+      });
+      resetForm();
+      }
+     catch(error){
+      console.error("Error adding blog: ", error);
+     }
+    }
+  
+
+  console.log("r==-=--=-=--==--==--=-=-=-=-=--=uwefuefhs",reciveData);
 
   const onSubmit = async (values, {resetForm}) => {
     console.log(values);
-    // setSubmitting(true);
-    // resetForm();
-    // const db = getDatabase(app);
-  //   try {
-  //     await schema.validate(values,{abortEarly:false});
-  //     const db = getDatabase(realtimeapp);
-  //     await push(ref(db, "customers"), {
-  //       fullname: values.fullname,
-  //       email: values.email,
-  //       phonenumber: values.phonenumber,
-  //       message: values.message,
-  //     });
-  //     resetForm();
-  //     alert("Form submitted successfully!");
-  //   } catch (error) {
-  //     console.error("Error storing data:", error);
-  //     alert("Error submitting form. Please try again.");
-  //   }
-  //   setSubmitting(false);
+    await writeData();
   };
 
   const formik = useFormik({
@@ -90,7 +120,7 @@ function Contactus() {
     enableReinitialize:true
   });
 
-  const { values, handleSubmit,handleBlur,errors,touched,setFieldValue} = formik;
+  const { values, handleSubmit,handleBlur,errors,touched,setFieldValue,resetForm} = formik;
  
   return (
     <>
@@ -101,7 +131,7 @@ function Contactus() {
         </video> */}
         <div className="mainDiv-content">
           <h1 className="anim" style={{ textTransform: "uppercase" }}>
-            {data?.contactcontent?.heading}
+            {reciveData[0]?.heading}
           </h1>
         </div>
       </div>
@@ -115,9 +145,9 @@ function Contactus() {
             }}
           >
           
-            {data?.contactcontent?.heading2}{" "}
+            {reciveData[0]?.heading2}{" "}
           </h1>
-          <p style={{ paddingLeft: "50px" }}>{data?.contactcontent?.desc}</p>
+          <p style={{ paddingLeft: "50px" }}>{reciveData[0]?.desc}</p>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-4 d-flex justify-content-center">
           <img src={connect} max-width="400px" max-height="400px" alt="image" />
@@ -128,7 +158,7 @@ function Contactus() {
         <div class="col-lg-6 col-md-12 col-sm-12 p-4">
           <div className="left">
             <h1 style={{ textTransform: "capitalize" }}>
-              {data?.contactcontent?.heading3}
+              {reciveData[0]?.heading3}
             </h1>
             <div className="contain">
               <div className="location">
@@ -139,7 +169,7 @@ function Contactus() {
                   style={{ textTransform: "capitalize" }}
                 >
                   {" "}
-                  {data?.contactcontent?.address}
+                  {reciveData[0]?.address}
                 </a>
               </div>
               <div className="location">
@@ -150,9 +180,9 @@ function Contactus() {
                   style={{ textTransform: "capitalize" }}
                 >
                   {" "}
-                  {data?.contactcontent?.emailhead}
+                  {reciveData[0]?.emailhead}
                   <br></br>
-                  {data?.contactcontent?.email}
+                  {reciveData[0]?.email}
                 </a>
               </div>
               <div className="location" s>
@@ -162,9 +192,9 @@ function Contactus() {
                   target="_blank"
                   style={{ textTransform: "capitalize" }}
                 >
-                  {data?.contactcontent?.phonehead}
+                  {reciveData[0]?.phonehead}
                   <br></br>
-                  {data?.contactcontent?.phoneno}
+                  {reciveData[0]?.phoneno}
                 </a>
               </div>
             </div>
@@ -173,7 +203,7 @@ function Contactus() {
         <div class="col-lg-6 col-md-6 col-sm-12 major">
           <div className="formcontainer">
             <h1 style={{ textTransform: "capitalize" }}>
-              {data?.contactcontent?.formhead}
+              {reciveData[0]?.formhead}
             </h1>
             <form onSubmit={handleSubmit}>
               <div className="formitems">
@@ -185,7 +215,7 @@ function Contactus() {
                     setFieldValue("fullname", e?.target?.value);
                   }}
                   onBlur={handleBlur}
-                  placeholder={data?.contactcontent?.custname}
+                  placeholder={reciveData[0]?.custname}
                   style={{ textTransform: "capitalize" }}
                 />
               </div>
@@ -203,7 +233,7 @@ function Contactus() {
                   value={values.phonenumber}
                   onBlur={handleBlur}
                   onChange={ (e)=>{setFieldValue("phonenumber",e.target.value)}}
-                  placeholder={data?.contactcontent?.custphone}
+                  placeholder={reciveData[0]?.custphone}
                   style={{ textTransform: "capitalize" }}
                 />
               </div>
@@ -221,7 +251,7 @@ function Contactus() {
                   values={values.email}
                   onBlur={handleBlur}
                   onChange={(e)=>{setFieldValue("email",e.target.value)}}
-                  placeholder={data?.contactcontent?.custemail}
+                  placeholder={reciveData[0]?.custemail}
                   
                 />
               </div>
@@ -241,7 +271,7 @@ function Contactus() {
                   height="40px"
                   onChange={(e)=>setFieldValue("message",e.target.value)}
                   style={{ resize: "horizontal", textTransform: "capitalize" }}
-                  placeholder={data?.contactcontent?.custmessage}
+                  placeholder={reciveData[0]?.custmessage}
                 ></textarea>
               </div>
               {touched.message && errors.message ? (
@@ -253,7 +283,7 @@ function Contactus() {
               )}
               <div className="formbtn">
                 <button className="contactbtn" type="submit" style={{ textTransform: "capitalize" }}>
-                  {data?.contactcontent?.btntitle}
+                  {reciveData[0]?.btntitle}
                 </button>
               </div>
             </form>
