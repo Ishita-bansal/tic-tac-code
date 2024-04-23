@@ -78,6 +78,7 @@ function Navbar(){
              <li className='nav-item'><Link className='customlink' to="/AboutUs" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav2}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/contactus" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav3}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/Blog" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav4}</Link></li>
+             <li className='nav-item'><Link className='customlink' to="/product" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav5}</Link></li>
             </ul>
            </nav>
        </div>

@@ -58,7 +58,7 @@ const schema = yup.object({
 
 
 function Contactus() {
-  // const [submitting, setSubmitting] = useState(false);
+  
  
   const [reciveData, setReciveData] = useState([]);
 

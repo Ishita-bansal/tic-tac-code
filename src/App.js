@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import AboutUs from "./components/AboutUs";
 import Hero from "./components/Hero";
 import Blog from "./components/Blog";
+import Product from "./components/product";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contactus from "./components/contactus";
 import pdf from "./components/images/tictacmenu.pdf";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/Blog" element={<Blog/>}/>
+          <Route path="/product" element={<Product/>}/>
         </Routes>
         <button onClick={handleDownload} className="menubtn">
           Menu

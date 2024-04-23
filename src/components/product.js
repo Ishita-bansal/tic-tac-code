@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "./blog.css";
-import img1 from "./images/game1.jpg";
 import { app } from "../firebase";
-import {
-  collection,
-  getFirestore,
-  addDoc,
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
+import {collection,getFirestore,getDocs} from "firebase/firestore";
 const firestore = getFirestore(app);
 
-function Blog() {
+function Product() {
   const [recievedata,setrecievedata] = useState([]);
 
 
   const getdocument = async () =>{
     try{
-        const collectionRef = collection(firestore,"Tic-tacs-games");
+        const collectionRef = collection(firestore,"products");
         const querySnapshot = await getDocs(collectionRef);
       const data = [];
       querySnapshot.forEach((doc) => {
@@ -46,7 +36,7 @@ function Blog() {
     <>
       <div className="background-container">
       <div className="blog-head">
-          <h1>Blog</h1>
+          <h1>Products</h1>
       </div>
       </div>
       <div className="blog-input-field">
@@ -64,4 +54,4 @@ function Blog() {
   );
 }
 
-export default Blog;
+export default Product;
