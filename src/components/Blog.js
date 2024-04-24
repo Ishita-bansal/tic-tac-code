@@ -58,8 +58,8 @@ function Blog() {
         <p  dangerouslySetInnerHTML={{__html: detail.desc}}></p>
       </div>
     ))
-}  
-      </div>
+ }  
+    </div>
     </>
   );
 }
