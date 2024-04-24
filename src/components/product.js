@@ -9,7 +9,7 @@ const firestore = getFirestore(app);
 function Product() {
   const [productdata,  setproductdata] = useState([]);
   const [dropdownActive, setDropdownActive] = useState(false);
-  const [seletedMenu,setSeletedMenu]=useState('')
+  const [seletedMenu,setSeletedMenu]=useState([]);
  const [categorydata, setcategorydata] = useState();
   const toggleDropdown = () => {
     setDropdownActive(!dropdownActive);
@@ -75,11 +75,9 @@ console.log("categorydata",categorydata)
 
 
   const getProductByCat=(info)=>{
-
-    console.log('info==>',info)
-
     const selectedArray=productdata?.filter((obj,i,arr)=>obj?.category===info?.id)
     console.log('selectedArray==>',selectedArray)
+    setSeletedMenu(selectedArray)
   }
   return (
     <>
@@ -88,29 +86,34 @@ console.log("categorydata",categorydata)
           <h1>Products</h1>
         </div>
       </div>
+      <div className="secondhalf">
+      <div className="product-input-field">
       <div class="sidediv" style={{ zIndex: 2 }}>
         <button class="dropdown-btn" onClick={toggleDropdown}>
           Categories
           <FontAwesomeIcon icon={faAngleDown} />
         </button>
         <div
-          className={`dropdown-container`}
+          className={"dropdown-container"}
           style={{ display: dropdownActive ? "block" : "none" }}
         >
-          {productdata?.map((info) => {
+          {categorydata?.map((info) => {
             return <div className="anchordata" key={info?.id} onClick={()=>getProductByCat(info)}>{info.title}</div>;
           })}
         </div>
       </div>
-      <div className="blog-input-field">
-        {productdata?.map((detail) => (
-          <div className="cards">
+      
+        {seletedMenu?.map((detail) => (
+          <div className="product-cards">
             <img src={detail.img} alt="image" />
             <h2>{detail.title}</h2>
             <p dangerouslySetInnerHTML={{ __html: detail.desc }}></p>
+            <p>₹{detail.price}</p>
+            <button>Add To Cart</button>
           </div>
         ))}
       </div>
+    </div>
     </>
   );
 }
