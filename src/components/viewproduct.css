@@ -1,0 +1,26 @@
+.viewproduct-container{
+     width:100%;
+     height:100vh;
+     background-color: #15283c;
+     display:flex;
+     justify-content: center;
+     align-items: center;
+     gap:40px;
+}
+
+
+.product-box{
+    display:flex;
+    gap:30px;
+    padding:20px;
+}
+
+.viewproduct-btn{
+    width:150px;
+    height:50px;
+    border-radius:30px;
+    background-color:#111111b0;
+    color:white;
+    border:none;
+    outline:none;
+}

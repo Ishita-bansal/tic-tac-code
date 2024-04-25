@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contactus from "./components/contactus";
 import pdf from "./components/images/tictacmenu.pdf";
 import "./components/style.css";
+import Viewproduct from "./components/viewproduct";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/Blog" element={<Blog/>}/>
           <Route path="/product" element={<Product/>}/>
+          <Route path="/viewproduct/:id" element={<Viewproduct/>}/>
         </Routes>
         <button onClick={handleDownload} className="menubtn">
           Menu

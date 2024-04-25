@@ -1,18 +1,16 @@
 import React,{useState,useEffect} from 'react'
 import './style.css';
-import {FaBars , FaTimes} from 'react-icons/fa';
+import {FaBars, FaTimes} from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from './images/logo.png';
 import {Link} from 'react-router-dom';
 import { app } from "../firebase";
 import {
   collection,
   getFirestore,
-  addDoc,
-  doc,
-  getDoc,
   getDocs,
-  updateDoc,
 } from "firebase/firestore";
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 const firestore = getFirestore(app);
 
 
@@ -21,8 +19,6 @@ function Navbar(){
   const [color,setColor] = useState(false);
 
   const [reciveData, setReciveData] = useState([]);
-
-
   const getdocument = async () => {
     try {
       const collectionRef = collection(firestore, "navbar");
@@ -79,6 +75,7 @@ function Navbar(){
              <li className='nav-item'><Link className='customlink' to="/contactus" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav3}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/Blog" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav4}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/product" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav5}</Link></li>
+             <li className='nav-item'><Link className='customlink' to="/addtocart" style={{textTransform:"capitalize"}}><FontAwesomeIcon style={{fontSize:"30px"}} icon={faCartShopping}/></Link></li>
             </ul>
            </nav>
        </div>

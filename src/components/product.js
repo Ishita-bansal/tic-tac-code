@@ -4,6 +4,7 @@ import { app } from "../firebase";
 import { collection, getFirestore, getDocs } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faEye } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 const firestore = getFirestore(app);
 
 function Product() {
@@ -11,6 +12,7 @@ function Product() {
   const [dropdownActive, setDropdownActive] = useState(false);
   const [seletedMenu,setSeletedMenu]=useState([]);
  const [categorydata, setcategorydata] = useState();
+ const navigate = useNavigate();
   const toggleDropdown = () => {
     setDropdownActive(!dropdownActive);
   };
@@ -73,6 +75,9 @@ console.log("categorydata",categorydata)
 
   console.log(" product data=======>",productdata);
 
+  const getviewdata = (detail) =>{
+        navigate(`/viewproduct/${detail.id}`)
+  }
 
   const getProductByCat=(info)=>{
     const selectedArray=productdata?.filter((obj,i,arr)=>obj?.category===info?.id)
@@ -111,7 +116,7 @@ console.log("categorydata",categorydata)
             <p>₹{detail.price}</p>
             <div style={{display:"flex",justifyContent:"center",gap:"30px"}}>
             <button style={{width:"150px",height:"50px",borderRadius:"30px",backgroundColor:"#111",color:"white"}}>Add To Cart</button>
-            <button style={{width:"50px",height:"50px",borderRadius:"50%",backgroundColor:"#111",color:"white"}}><FontAwesomeIcon icon={faEye}/></button>
+            <button style={{width:"50px",height:"50px",borderRadius:"50%",backgroundColor:"#111",color:"white"}} onClick={()=>{getviewdata(detail)}}><FontAwesomeIcon icon={faEye}/></button>
             </div>
           </div>
         ))}
