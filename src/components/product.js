@@ -3,7 +3,7 @@ import "./product.css";
 import { app } from "../firebase";
 import { collection, getFirestore, getDocs } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faEye } from "@fortawesome/free-solid-svg-icons";
 const firestore = getFirestore(app);
 
 function Product() {
@@ -109,7 +109,10 @@ console.log("categorydata",categorydata)
             <h2>{detail.title}</h2>
             <p dangerouslySetInnerHTML={{ __html: detail.desc }}></p>
             <p>₹{detail.price}</p>
-            <button>Add To Cart</button>
+            <div style={{display:"flex",justifyContent:"center",gap:"30px"}}>
+            <button style={{width:"150px",height:"50px",borderRadius:"30px",backgroundColor:"#111",color:"white"}}>Add To Cart</button>
+            <button style={{width:"50px",height:"50px",borderRadius:"50%",backgroundColor:"#111",color:"white"}}><FontAwesomeIcon icon={faEye}/></button>
+            </div>
           </div>
         ))}
       </div>
