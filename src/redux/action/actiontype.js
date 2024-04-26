@@ -1,0 +1,5 @@
+export const ACTIONTYPE = {
+     ADDCART:"ADDCART",
+     INCREMENT:"INCREMENT",
+     DECREMENT:"DECREMENT"
+}

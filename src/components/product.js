@@ -5,6 +5,9 @@ import { collection, getFirestore, getDocs } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addcart } from "../redux/action";
 const firestore = getFirestore(app);
 
 function Product() {
@@ -13,6 +16,11 @@ function Product() {
   const [seletedMenu,setSeletedMenu]=useState([]);
  const [categorydata, setcategorydata] = useState();
  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+   const addData =  useSelector((state)=>state?.Addtocartreducer);
+  console.log("adddata=====>",addData);
+
   const toggleDropdown = () => {
     setDropdownActive(!dropdownActive);
   };
@@ -36,6 +44,7 @@ function Product() {
       try {
         const data = await getcategory();
         setcategorydata(data);
+
       } catch (error) {
         console.error("Error fetching documents:", error);
       }
@@ -79,11 +88,17 @@ console.log("categorydata",categorydata)
         navigate(`/viewproduct/${detail.id}`)
   }
 
+  const getcartdata = (detail) =>{
+    dispatch(addcart({...detail,quatity:1}));
+  }
+
+  // detail
   const getProductByCat=(info)=>{
     const selectedArray=productdata?.filter((obj,i,arr)=>obj?.category===info?.id)
     console.log('selectedArray==>',selectedArray)
     setSeletedMenu(selectedArray)
   }
+ 
   return (
     <>
       <div className="background-container">
@@ -111,11 +126,11 @@ console.log("categorydata",categorydata)
         {seletedMenu?.map((detail) => (
           <div className="product-cards">
             <img src={detail.img} alt="image" />
-            <h2>{detail.title}</h2>
+            <h2>{detail.productname}</h2>
             <p dangerouslySetInnerHTML={{ __html: detail.desc }}></p>
             <p>₹{detail.price}</p>
             <div style={{display:"flex",justifyContent:"center",gap:"30px"}}>
-            <button style={{width:"150px",height:"50px",borderRadius:"30px",backgroundColor:"#111",color:"white"}}>Add To Cart</button>
+            <button style={{width:"150px",height:"50px",borderRadius:"30px",backgroundColor:"#111",color:"white"}} onClick={()=>{getcartdata(detail)}}>Add To Cart</button>
             <button style={{width:"50px",height:"50px",borderRadius:"50%",backgroundColor:"#111",color:"white"}} onClick={()=>{getviewdata(detail)}}><FontAwesomeIcon icon={faEye}/></button>
             </div>
           </div>

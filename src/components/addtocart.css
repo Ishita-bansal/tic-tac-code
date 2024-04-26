@@ -1,0 +1,45 @@
+.addcart-container{
+    height:100vh;
+    background-color:  #15283c;
+    display:flex;
+    flex-direction: column;
+   gap:40px;
+    color:white;
+    padding-top:200px;
+}
+
+.add-subcontainer{
+   
+    width: fit-content;
+    height:fit-content;
+    display:flex;
+     gap:20px;
+     align-items: center;
+}
+
+.add-data{
+    display: flex;
+    justify-content: space-around;
+}
+
+.add-subcontainer img{
+    width: 30%;
+}
+
+.add-btn{
+    width:60px;
+    height:60px;
+    border:none;
+    outline:none;
+   font-size: 22px;
+}
+
+.itemdelete-btn{
+    width:150px;
+    height:50px;
+    border-radius: 8px;
+    background-color:blanchedalmond;
+    font-size: 22px;
+    border:none;
+    outline:none;
+}

@@ -9,7 +9,7 @@ import Contactus from "./components/contactus";
 import pdf from "./components/images/tictacmenu.pdf";
 import "./components/style.css";
 import Viewproduct from "./components/viewproduct";
-
+import Addtocart from "./components/addtocart";
 
 function App() {
 
@@ -35,6 +35,7 @@ function App() {
           <Route path="/Blog" element={<Blog/>}/>
           <Route path="/product" element={<Product/>}/>
           <Route path="/viewproduct/:id" element={<Viewproduct/>}/>
+          <Route path="/addtocart" element={<Addtocart/>} />
         </Routes>
         <button onClick={handleDownload} className="menubtn">
           Menu

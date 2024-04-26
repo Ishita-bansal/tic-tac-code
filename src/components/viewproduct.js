@@ -55,8 +55,8 @@ const Viewproduct = () => {
                 <p dangerouslySetInnerHTML={{ __html: filteredproduct.desc }}></p>
                 <p>₹{filteredproduct.price}</p>
                 <button className="viewproduct-btn">Add To Cart</button>
-              </div>
-            </div>
+           </div>
+         </div>
         </>
         }
     </div>
