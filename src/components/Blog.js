@@ -5,18 +5,13 @@ import { app } from "../firebase";
 import {
   collection,
   getFirestore,
-  addDoc,
-  doc,
-  getDoc,
   getDocs,
-  updateDoc,
+
 } from "firebase/firestore";
 const firestore = getFirestore(app);
 
 function Blog() {
   const [recievedata,setrecievedata] = useState([]);
-
-
   const getdocument = async () =>{
     try{
         const collectionRef = collection(firestore,"Tic-tacs-games");
@@ -42,6 +37,7 @@ function Blog() {
           };
           fetchData();  
     },[])
+
   return (
     <>
       <div className="background-container">

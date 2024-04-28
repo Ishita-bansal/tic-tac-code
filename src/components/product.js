@@ -18,12 +18,38 @@ function Product() {
  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-   const addData =  useSelector((state)=>state?.Addtocartreducer);
+   const addData =  useSelector((state)=>state?.Addtocartreducer).addproducts || [];
   console.log("adddata=====>",addData);
 
   const toggleDropdown = () => {
     setDropdownActive(!dropdownActive);
   };
+  const [recieveblogdata,setrecieveblogdata] = useState([]);
+  const getblogdata = async () =>{
+    try{
+        const collectionRef = collection(firestore,"Tic-tacs-games");
+        const querySnapshot = await getDocs(collectionRef);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      return data;
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+      return [];
+    }
+  }
+    useEffect(()=>{
+        const fetchData = async () => {
+            try {
+              const data = await getblogdata();
+              setrecieveblogdata(data);
+            } catch (error) {
+              console.error("Error fetching documents:", error);
+            }
+          };
+          fetchData();  
+    },[])
 
   const getcategory = async () => {
     try {
@@ -52,9 +78,9 @@ function Product() {
     fetchData();
   }, []);
 
-console.log("categorydata",categorydata)
+// console.log("categorydata",categorydata)
 
-  console.log('seletedMenu==>',seletedMenu)
+  // console.log('seletedMenu==>',seletedMenu)
 
   const getdocument = async () => {
     try {
@@ -82,20 +108,25 @@ console.log("categorydata",categorydata)
     fetchData();
   }, []);
 
-  console.log(" product data=======>",productdata);
+  // console.log(" product data=======>",productdata);
 
   const getviewdata = (detail) =>{
         navigate(`/viewproduct/${detail.id}`)
   }
 
   const getcartdata = (detail) =>{
-    dispatch(addcart({...detail,quatity:1}));
+    if(addData?.some((item)=>item.id === detail.id)){
+      alert("item already exist in cart");
+    }
+    else{
+      dispatch(addcart({...detail,quantity:1}));
+    } 
   }
 
   // detail
   const getProductByCat=(info)=>{
     const selectedArray=productdata?.filter((obj,i,arr)=>obj?.category===info?.id)
-    console.log('selectedArray==>',selectedArray)
+    // console.log('selectedArray==>',selectedArray)
     setSeletedMenu(selectedArray)
   }
  
@@ -122,8 +153,9 @@ console.log("categorydata",categorydata)
           })}
         </div>
       </div>
-      
-        {seletedMenu?.map((detail) => (
+      {
+        seletedMenu.length > 0 ?
+        (seletedMenu?.map((detail) => (
           <div className="product-cards">
             <img src={detail.img} alt="image" />
             <h2>{detail.productname}</h2>
@@ -134,7 +166,21 @@ console.log("categorydata",categorydata)
             <button style={{width:"50px",height:"50px",borderRadius:"50%",backgroundColor:"#111",color:"white"}} onClick={()=>{getviewdata(detail)}}><FontAwesomeIcon icon={faEye}/></button>
             </div>
           </div>
-        ))}
+        )) ) :
+
+        (<div className="blog-input-field">
+        {     
+      recieveblogdata?.map((detail)=>(
+        <div className="cards">
+        <img src={detail.img} alt="image"/>
+        <h2>{detail.title}</h2>
+        <p  dangerouslySetInnerHTML={{__html: detail.desc}}></p>
+      </div>
+    ))
+ }  
+    </div>  )     
+ 
+      }
       </div>
     </div>
     </>
