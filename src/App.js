@@ -11,6 +11,10 @@ import "./components/style.css";
 import Viewproduct from "./components/viewproduct";
 import Addtocart from "./components/addtocart";
 import Checkout from "./components/checkout";
+import Signup from "./components/signup";
+import Login from "./components/login";
+// import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 function App() {
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -34,12 +38,15 @@ function App() {
           <Route path="/viewproduct/:id" element={<Viewproduct/>}/>
           <Route path="/addtocart" element={<Addtocart/>} />
           <Route path="/checkout" element = {<Checkout/>} />
+          <Route path="signup" element = {<Signup/>} />
+          <Route path="/login" element = {<Login/>}/>
         </Routes>
         <button onClick={handleDownload} className="menubtn">
           Menu
         </button>
         <Footer />
       </BrowserRouter>
+      {/* <ToastContainer /> */}
     </div>
   );
 }

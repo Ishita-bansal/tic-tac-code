@@ -1,5 +1,6 @@
  .checkout-container{
     height:100vh;
+  
     background-color:#15283ce9;
     display:flex;
 }
@@ -39,7 +40,7 @@
 }
 
 .order-secondpart {
-    max-height: 150px;
+    max-height: 500px;
     overflow-y: scroll;
 }
 

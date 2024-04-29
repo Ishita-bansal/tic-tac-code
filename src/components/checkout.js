@@ -13,13 +13,19 @@ const defaultValues = {
   cities: "",
 };
 const Checkout = () => {
+
   const orderdata =
     useSelector((state) => state.Addtocartreducer).addproducts || [];
   console.log("oderedData------->", orderdata);
+
+  const totalPrice = orderdata.reduce((total, item) => {
+    return total + (item.price * item.quantity);
+  }, 0);
+
   return (
     <>
       <div className="checkout-container">
-        <div class="row" style={{ padding: "200px 70px", width: "100%" }}>
+        <div class="row" style={{ padding: " 100px", width: "100%"}}>
           <div
             class="col-lg-5"
             style={{ backgroundColor: "#15283ce9", paddingTop: "30px" }}>
@@ -106,10 +112,10 @@ const Checkout = () => {
                 );
               })}
               <div className="total">
-               Tax:-<span>0</span><br></br>
-               Total:-<span>Total</span>
+               Total:-<span>{ totalPrice }</span>
                </div>
             </div>
+            
           </div>
         </div>
       </div>
