@@ -1,0 +1,51 @@
+ .checkout-container{
+    height:100vh;
+    background-color:#15283ce9;
+    display:flex;
+}
+
+.inputs{
+    display:flex;
+    flex-direction:column;
+     gap:60px;
+     padding-left: 10px;
+}
+
+.checkout-subcontainer {
+    display:flex;
+    gap:60px;    
+    
+}
+
+.checkout-subcontainer textarea , input,select{
+    width:250px;
+    height:50px;
+    border-radius: 10px;
+    border:none;
+    outline:none;
+}
+
+.checkout-subcontainer select, input::placeholder{
+    padding-left:15px;
+}
+
+.order-secondpart{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:10px;
+    height:100%;
+   
+}
+
+.order-secondpart {
+    max-height: 150px;
+    overflow-y: scroll;
+}
+
+.credit-inputs{
+    display: flex;
+    flex-direction: column;
+    border:4px solid white;
+}
+

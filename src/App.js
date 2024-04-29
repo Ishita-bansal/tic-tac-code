@@ -10,11 +10,8 @@ import pdf from "./components/images/tictacmenu.pdf";
 import "./components/style.css";
 import Viewproduct from "./components/viewproduct";
 import Addtocart from "./components/addtocart";
-
+import Checkout from "./components/checkout";
 function App() {
-
-
-
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = pdf;
@@ -36,6 +33,7 @@ function App() {
           <Route path="/product" element={<Product/>}/>
           <Route path="/viewproduct/:id" element={<Viewproduct/>}/>
           <Route path="/addtocart" element={<Addtocart/>} />
+          <Route path="/checkout" element = {<Checkout/>} />
         </Routes>
         <button onClick={handleDownload} className="menubtn">
           Menu

@@ -78,10 +78,6 @@ function Product() {
     fetchData();
   }, []);
 
-// console.log("categorydata",categorydata)
-
-  // console.log('seletedMenu==>',seletedMenu)
-
   const getdocument = async () => {
     try {
       const collectionRef = collection(firestore, "products");
@@ -108,7 +104,7 @@ function Product() {
     fetchData();
   }, []);
 
-  // console.log(" product data=======>",productdata);
+
 
   const getviewdata = (detail) =>{
         navigate(`/viewproduct/${detail.id}`)
@@ -123,10 +119,9 @@ function Product() {
     } 
   }
 
-  // detail
+
   const getProductByCat=(info)=>{
     const selectedArray=productdata?.filter((obj,i,arr)=>obj?.category===info?.id)
-    // console.log('selectedArray==>',selectedArray)
     setSeletedMenu(selectedArray)
   }
  

@@ -21,10 +21,7 @@ function Navbar(){
   const [reciveData, setReciveData] = useState([]);
 
   const data = useSelector((state)=>state?.Addtocartreducer).addproducts;
-  // console.log("============>",data);
-
-  const totalQuantity = data.reduce((total, product) => total + product.quantity, 0);
-
+  
   const getdocument = async () => {
     try {
       const collectionRef = collection(firestore, "navbar");
@@ -81,7 +78,9 @@ function Navbar(){
              <li className='nav-item'><Link className='customlink' to="/contactus" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav3}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/Blog" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav4}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/product" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav5}</Link></li>
-             <li className='nav-item'><Link className='customlink' to="/addtocart" style={{textTransform:"capitalize"}}><FontAwesomeIcon style={{fontSize:"30px"}} icon={faCartShopping}/><sup style={{fontSize:"32px"}}>{totalQuantity}</sup></Link></li>
+             <li className='nav-item'><Link className='customlink' to="/addtocart" style={{textTransform:"capitalize"}}><FontAwesomeIcon style={{fontSize:"30px"}} icon={faCartShopping}/><sup style={{fontSize:"32px"}}>{data?.length}</sup></Link></li>
+             <li className='nav-item'><Link className='customlink' to="" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav6}</Link></li>
+             
             </ul>
            </nav>
        </div>
