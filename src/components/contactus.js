@@ -144,7 +144,6 @@ function Contactus() {
               textTransform: "capitalize",
             }}
           >
-          
             {reciveData[0]?.heading2}{" "}
           </h1>
           <p style={{ paddingLeft: "50px" }}>{reciveData[0]?.desc}</p>
@@ -290,17 +289,22 @@ function Contactus() {
           </div>
         </div>
       </div>
-      <div className="last-map" style={{ width:'100%' }}>
+      <div className="last-map" style={{ width:'50%',padding:"0px 50px" }}>
     <iframe
       title="Oh My Game! Location"
       src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d27445.75254619908!2d76.7026142!3d30.69817945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1713167424862!5m2!1sen!2sin"
-      width="100%"
+      width="50%"
+      
       height="600px"
       style={{ border: 0,width:"100%" }}
       allowFullScreen=""
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
     />
+    </div>
+    <div>
+          {/* <>Address</p> */}
+
     </div>
     </>
   );

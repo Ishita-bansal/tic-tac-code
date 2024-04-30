@@ -45,6 +45,7 @@ function Blog() {
           <h1>Blog</h1>
       </div>
       </div>
+      <div className="blog-subcontainer">
       <div className="blog-input-field">
         {     
     recievedata?.map((detail)=>(
@@ -55,6 +56,7 @@ function Blog() {
       </div>
     ))
  }  
+    </div>
     </div>
     </>
   );

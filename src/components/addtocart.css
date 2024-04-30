@@ -1,6 +1,6 @@
 .addcart-container{
     height:100vh;
-    background-color:  #15283c;
+    background-color:#464866;
     display:flex;
     flex-direction: column;
     justify-content: space-between;
@@ -51,18 +51,18 @@
     display:flex;
     justify-content: flex-end;
     padding:20px 100px;
-
 }
 
 .checkout-btn button{
       width:150px;
       height:50px;
       border-radius: 8px;
-      background-color:rgba(255, 140, 0, 0.317);
+      background-color:rgba(255, 127, 80, 0.872);
       font-size: 22px;
       border:none;
       outline:none;
       color:white;
+      cursor: pointer;
 }
 
 .checkout-btn button:hover{

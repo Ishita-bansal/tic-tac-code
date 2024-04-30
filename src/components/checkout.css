@@ -1,14 +1,13 @@
  .checkout-container{
     height:100vh;
-  
-    background-color:#15283ce9;
-    display:flex;
+    background-color:#464866;
+    /* display:flex; */
 }
 
 .inputs{
     display:flex;
     flex-direction:column;
-     gap:60px;
+     gap:10px;
      padding-left: 10px;
 }
 
@@ -18,16 +17,17 @@
     
 }
 
-.checkout-subcontainer textarea , input,select{
+.checkout-subcontainer textarea , input,Select{
     width:250px;
     height:50px;
     border-radius: 10px;
-    border:none;
+    background-color: transparent;
     outline:none;
 }
 
-.checkout-subcontainer select, input::placeholder{
+.checkout-subcontainer .mui-input{
     padding-left:15px;
+    color:#111;
 }
 
 .order-secondpart{

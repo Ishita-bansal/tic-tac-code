@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Errorhandle from "../errorhandle";
 import {getAuth,createUserWithEmailAndPassword} from "firebase/auth"
 import { useNavigate } from "react-router-dom";
 import {app} from "../firebase";
@@ -56,9 +57,7 @@ function Signup() {
      const toggleconfirmpassword =()=>{
         setshowconfirmpass(!showconfirmpass)
      }
-
-   
-     
+  
   const onSubmit = (values) => {
      console.log(values);
      const auth = getAuth(app);
@@ -89,9 +88,9 @@ function Signup() {
 
   return (
     <>
-      <div className="maincontainer">
-        <div className="formbox">
-          <h1>Register</h1>
+      <div className="signup-maincontainer">
+        <div className="signup-formbox">
+          <h1>Sign up</h1>
           <form onSubmit={handleSubmit}>
             <div className="register-inputs">
               <div className="register-input-fields">
@@ -105,7 +104,7 @@ function Signup() {
                   placeholder="Your Name"
                 />
               </div>
-              {/* <Errorhandle  touched={touched} errors={errors} fieldName="name"/> */}
+              <Errorhandle  touched={touched} errors={errors} fieldName="name"/>
               <div className="register-input-fields">
                 <FontAwesomeIcon icon={faEnvelope} className="fonticon" />
                 <input
@@ -117,7 +116,7 @@ function Signup() {
                   placeholder="Email"
                 />
               </div>
-              {/* <Errorhandle  touched={touched} errors={errors} fieldName="email"/> */}
+              <Errorhandle  touched={touched} errors={errors} fieldName="email"/>
               <div className="register-input-fields">
                 <FontAwesomeIcon icon={faLock} className="fonticon" />
                 <input
@@ -129,9 +128,9 @@ function Signup() {
                   }
                   placeholder="Password"
                 />
-                <button className="registereyebtn" type="button" onClick={togglepassword}>{showPassword? <FontAwesomeIcon icon={faEye} className="eyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="eyeicon" />}</button>
+                <button className="signupeyebtn" type="button" onClick={togglepassword}>{showPassword? <FontAwesomeIcon icon={faEye} className="eyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="eyeicon" />}</button>
               </div>
-             {/* <Errorhandle  touched={touched} errors={errors} fieldName="password"/> */}
+             <Errorhandle  touched={touched} errors={errors} fieldName="password"/>
               <div className="register-input-fields">
                 <FontAwesomeIcon icon={faLock} className="fonticon" />
                 <input
@@ -143,9 +142,9 @@ function Signup() {
                   onBlur={() =>setTouched({ ...touched, confirmpass: true })
                   }
                 />
-                <button className="registereyebtn" type="button" onClick={toggleconfirmpassword}>{showconfirmpass? <FontAwesomeIcon icon={faEye} className="eyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="eyeicon" />}</button>
+                <button className="signupeyebtn" type="button" onClick={toggleconfirmpassword}>{showconfirmpass? <FontAwesomeIcon icon={faEye} className="eyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="eyeicon" />}</button>
               </div>
-              {/* <Errorhandle  touched={touched} errors={errors} fieldName="confirmpass"/> */}
+              <Errorhandle  touched={touched} errors={errors} fieldName="confirmpass"/>
 
               <div className="register-label">
                 <label>
@@ -155,14 +154,15 @@ function Signup() {
                     value={values.checked}
                     onChange={(e) => setFieldValue("checked", !values.checked)}
                     onBlur={()=>setTouched({...touched,checked:true})}
+                    style={{width:"20px"}}
                   />
                   I agree to terms & conditions
                 </label>
-                {/* <Errorhandle  touched={touched} errors={errors} fieldName="checked"/> */}
+                <Errorhandle  touched={touched} errors={errors} fieldName="checked"/>
               </div>
             </div>
-            <div className="btn">
-              <button type="submit">Register</button>
+            <div className="signup-btn">
+              <button type="submit">Sign up</button>
             </div>
           </form>
         </div>

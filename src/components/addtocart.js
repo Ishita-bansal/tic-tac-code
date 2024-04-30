@@ -6,11 +6,15 @@ import { addcart, decrement } from "../redux/action";
 import { removecart } from "../redux/action";
 import { increment } from "../redux/action";
 import { useNavigate } from "react-router-dom";
+
+
+
 const Addtocart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const alldata =
-    useSelector((state) => state?.Addtocartreducer).addproducts || [];
+
+
+  const alldata = useSelector((state) => state?.Addtocartreducer).addproducts || [];
 
   const incrementdata = (data) => {
     const addnumber = alldata.find((info) => info.id === data.id);

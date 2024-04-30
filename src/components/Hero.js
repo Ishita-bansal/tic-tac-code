@@ -8,11 +8,9 @@ import { app } from "../firebase";
 import {
   collection,
   getFirestore,
-  addDoc,
-  doc,
-  getDoc,
+ 
   getDocs,
-  updateDoc,
+
 } from "firebase/firestore";
 const firestore = getFirestore(app);
 
@@ -89,7 +87,7 @@ console.log("-=-=--=-==--==",reciveData[0]?.title1);
       </div>
       <div className="hero-content3">
         <div className="hero-content3-part1">
-          <h1 style={{ color: "white", padding: "20px", textAlign: "center" }}>
+          <h1 style={{ color: "white", padding: "20px", textAlign: "center",margin:"0px" }}>
           {reciveData[0]?.title3}
           </h1>
         </div>

@@ -43,10 +43,6 @@ import {
 } from "firebase/firestore";
 const firestore = getFirestore(app);
 
-
-
-
-
 function AboutUs() {
   const [data, setData] = useState();
   const [reciveData, setReciveData] = useState([]);
@@ -80,9 +76,9 @@ function AboutUs() {
   return (
 <> 
     <div style={{backgroundColor:"grey", width:"100%" , height:"120px"}}></div>
-<div class="row mt-5" style={{backgroundColor:"#3f51b5"}}> 
+<div class="row" style={{backgroundColor:"#3f51b5"}}> 
         <div class="col-lg-12 text-center">
-            <h1 className='aboutanim' style={{color:"white",fontFamily:"cursive",textTransform:"capitalize"}}>{reciveData[0]?.heading}</h1>
+            <h1 className='aboutanim' style={{color:"white",fontFamily:"cursive",textTransform:"capitalize",paddingTop:"40px"}}>{reciveData[0]?.heading}</h1>
         </div>
        <div class="col-lg-12" style={{  width:"550px" ,margin:"auto",padding:"30px",color:"white"}}>
             <p>{reciveData[0]?.desc}</p>

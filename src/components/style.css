@@ -127,6 +127,11 @@
     color: #fff;
     z-index: 4;
     margin-top: 20%;
+    left:30%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     max-width: 1500px;
     position:absolute;
     padding:20px;
@@ -355,30 +360,29 @@ padding:30px;
      top:30%;
      left:90%;
      border-radius:50px;
-     width:50px;
-     height:50px;
+     width:60px;
+     height:60px;
      border:none;
-     background-color:cadetblue;
+     color:white;
+     background-color:antiquewhite;
      z-index:5;
 }
 
 .menubtn:hover{
    border:none;
-   background-color: chocolate;
+   background-color:rgb(250, 248, 215) ;
    transition: 1.2 ease-in-out;
 }
 
-
-
-
-
+.mySwiper{
+    margin-bottom: 20px;
+}
 
 .swiper {
   max-width:800px;
   max-height:500px;
   padding-top: 200px;
   padding-bottom: 200px;
-  
 }
 
 .swiper-slide {
@@ -440,45 +444,10 @@ object-fit: cover;
 .hero-content3-part1{
     background-color: black;
 }
-/* 
-.hero-content3-part2  .sub-hero-content img{
-    width:540px;
-}
 
-.hero-content3-part2{
-    display:flex;
-}
-
-.hero-content3 {
-    position: relative;
-    padding-bottom:30px;
-  }
-  
-  .sub-hero-content{
-    position: relative; 
-    z-index: 1; 
-  }
-  
-  .content3-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 2; 
-  }
-
-  .sub-hero-content{
-    width:fit-content;
-  }
- */
-
- .hero-content3{
-    padding-bottom:50px;
- }
 
  .hero-content3-part2 {
-    position: relative; /* Necessary for positioning children */
+    position: relative; 
     display: flex;
   }
   
