@@ -12,7 +12,7 @@ import * as yup from "yup";
 import image1 from "./images/loginpage.png";
 import {getAuth,signInWithEmailAndPassword} from "firebase/auth";
 import {app} from "../firebase";
-// import { Errorhandle } from "../../components";
+import Errorhandle from "../errorhandle";
 // import { useSelector,useDispatch } from "react-redux";
 // import { login } from "../../redux/action";
 // import TOASTMESSAGE from "../../constants";
@@ -90,7 +90,7 @@ const {setFieldValue ,values,setTouched,touched,errors,handleSubmit} = formik;
                         onBlur={()=>setTouched({...touched,email:true})}
                         placeholder="Email" />
                     </div>
-                    {/* <Errorhandle touched={touched} errors={errors} fieldName="email"/> */}
+                    <Errorhandle touched={touched} errors={errors} fieldName="email"/>
                     <div className="login-input-field">
                       <FontAwesomeIcon
                         icon={faLock}
@@ -108,29 +108,30 @@ const {setFieldValue ,values,setTouched,touched,errors,handleSubmit} = formik;
                       <button
                         type="button"
                         onClick={togglepassword}
-                        className="logineyebtn">
+                        className="signupeyebtn">
                         
                         {showPassword ? (
                           <FontAwesomeIcon
                             icon={faEyeSlash}
-                            className="login-eyeicon"
+                            className="signupeyeicon"
                           />
                         ) : (
                           <FontAwesomeIcon
                             icon={faEye}
-                            className="login-eyeicon"
+                            className="signupeyeicon"
+                            style={{fontSize:"25px"}}
                           />
                         )}
                       </button>
                     </div>
-                    {/* <Errorhandle touched={touched} errors={errors} fieldName="password"/> */}
+                    <Errorhandle touched={touched} errors={errors} fieldName="password"/>
                   </div>
                   <div className="login-btn">
                     <button type="submit">Login</button>
                   </div>
                   <div className="register-first">
-                    <h5>Do you have registered yet?</h5>
-                    <Link to="/register">Register</Link>
+                    <h5>Do you have Signup yet?</h5>
+                    <Link to="/signup">Signup</Link>
                   </div>
                 </div>
               </form>

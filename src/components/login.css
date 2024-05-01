@@ -74,14 +74,15 @@
     color:black
 }
 
-.logineyebtn{
+/* .logineyebtn{
     margin-right:15px ;
     background-color:rgba(0,0,50,0.3);
     border:0;
     width:40px;
     border-radius:60%;
-}
-.login-btn{
+}  */
+
+ .login-btn{
     border:none;
     outline:none;
     padding-left:30%;

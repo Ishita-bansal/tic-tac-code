@@ -128,7 +128,7 @@ function Signup() {
                   }
                   placeholder="Password"
                 />
-                <button className="signupeyebtn" type="button" onClick={togglepassword}>{showPassword? <FontAwesomeIcon icon={faEye} className="eyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="eyeicon" />}</button>
+                <button className="signupeyebtn" type="button" onClick={togglepassword}>{showPassword? <FontAwesomeIcon icon={faEye} className="signupeyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="signupeyeicon" />}</button>
               </div>
              <Errorhandle  touched={touched} errors={errors} fieldName="password"/>
               <div className="register-input-fields">
@@ -142,11 +142,11 @@ function Signup() {
                   onBlur={() =>setTouched({ ...touched, confirmpass: true })
                   }
                 />
-                <button className="signupeyebtn" type="button" onClick={toggleconfirmpassword}>{showconfirmpass? <FontAwesomeIcon icon={faEye} className="eyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="eyeicon" />}</button>
+                <button className="signupeyebtn" type="button" onClick={toggleconfirmpassword}>{showconfirmpass? <FontAwesomeIcon icon={faEye} className="signupeyeicon"/>: <FontAwesomeIcon icon={faEyeSlash} className="signupeyeicon" />}</button>
               </div>
               <Errorhandle  touched={touched} errors={errors} fieldName="confirmpass"/>
 
-              <div className="register-label">
+              <div className="signup-label">
                 <label>
                   <input
                     name="checked"

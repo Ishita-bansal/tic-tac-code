@@ -3,10 +3,12 @@
     background-color:#464866;
     display:flex;
     flex-direction: column;
-    justify-content: space-between;
-   gap:40px;
+    /* justify-content: space-between; */
+    align-items:center;
+     gap:60px;
     color:white;
     padding-top:200px;
+    
 }
 
 .add-subcontainer{ 
@@ -14,15 +16,23 @@
     height:100px;
     display:flex;
      gap:20px;
-     align-items: center;
+     align-items: center;  
 }
 
+.addtocart{
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+   
+}
 
 .add-data{
-
+    background-color: #AAABBB;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding:10px;
+    border-radius: 20px;
 }
 
 .add-subcontainer img{

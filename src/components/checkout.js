@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./checkout.css";
 import { useSelector } from "react-redux";
-import { app } from "../firebase";
+// import { app } from "../firebase";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -12,6 +12,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { Select, MenuItem, TextField } from "@mui/material";
 import Errorhandle from "../errorhandle";
+import { app } from "../firebase";
+import { addDoc ,collection ,getFirestore} from "firebase/firestore";
+const firestore = getFirestore(app);
 const defaultValues = {
   firstname: "",
   lastname: "",
@@ -22,7 +25,7 @@ const defaultValues = {
   states:"",
   cities: "",
   creditno:"",
-   expirydate:"",
+   expirydate:'09-01-2024',
    creditcode:""
 };
 const emailRegex =
@@ -56,13 +59,8 @@ const validationSchema = yup.object().shape({
     .required("Required")
     .matches(/^\d{16}$/, "Invalid credit card number"),
   expirydate: yup
-    .string()
-    .required("Required")
-    .test(
-      "valid-expiry-date",
-      "Invalid expiry date",
-      (value) => dayjs(value, "MM/YY", true).isValid() // Assuming expiry date format is MM/YY
-    ),
+    .date()
+    .required("Required"),
   creditcode: yup
     .string()
     .required("Required")
@@ -85,8 +83,37 @@ const states = [
 
 const Checkout = () => {
   const [stateEnabled, setstateEnabled] = useState(false);
-  const onSubmit = () => {
-    console.log("values", values);
+  const [checkoutData ,setcheckoutData] = useState([]);
+ 
+  const writeData = async (checkoutData,values) => {
+    try{
+     const result = await addDoc(collection(firestore, "orders"), {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      address: values.address,
+      email: values.email,
+      phone: values.phone,
+      postcode: values.postcode,
+      states:values.states,
+      cities: values.cities,
+      creditno:values.creditno,
+      expirydate:values.expirydate,
+      creditcode:values.creditcode,
+      orderdata: checkoutData,
+      total:checkoutData.reduce((total, item) => {
+        return total + item.price * item.quantity;
+      }, 0)
+     });
+  }
+    catch(error){
+     console.error("Error adding blog: ", error);
+    }
+   }
+
+  const onSubmit = (values) => {
+    
+    writeData(checkoutData,values);
+    resetForm();
   };
 
   const formik = useFormik({
@@ -95,10 +122,17 @@ const Checkout = () => {
     onSubmit: onSubmit,
   });
 
+
   const navigate = useNavigate();
-  const orderdata =
-    useSelector((state) => state.Addtocartreducer).addproducts || [];
-  console.log("oderedData------->", orderdata);
+
+  const orderdata = useSelector((state) => state.Addtocartreducer).addproducts || [];
+
+
+  
+  useEffect(() => {
+  
+    setcheckoutData(orderdata);
+  }, []);
 
   const SignOut = () => {
     const auth = getAuth(app);
@@ -112,7 +146,7 @@ const Checkout = () => {
     return total + item.price * item.quantity;
   }, 0);
 
-  const { errors, setFieldValue, setTouched, touched, values, handleSubmit } =
+  const { errors, setFieldValue, setTouched, touched, values, handleSubmit ,resetForm } =
     formik;
 
   return (
@@ -273,10 +307,8 @@ const Checkout = () => {
                   </div>
                 </div>
               </div>
-              <div className="checkout-btn">
-                <button>Submit</button>
-              </div>
-            
+
+
           </div>
           <div
             className="col-lg-5"
@@ -288,6 +320,7 @@ const Checkout = () => {
           >
               <div className="inputs">
                 <h1 style={{ color: "#111" }}>CREDIT INFORMATION</h1>
+            <div style={{paddingTop:"50px"}}>
                 <div>
                   <TextField className="mui-input" 
                    type="number" 
@@ -295,21 +328,25 @@ const Checkout = () => {
                    onChange={(e)=>setFieldValue("creditno",e.target.value)}
                    onBlur={()=>setTouched({...touched,creditno:true})}
                   placeholder="Card Number" 
+                  style={{width:"90%"}}
                   />
+                   <Errorhandle  touched={touched} errors={errors} fieldName="creditno"/>
                 </div>
-                <Errorhandle  touched={touched} errors={errors} fieldName="creditno"/>
-                <div>
+            <div style={{display:"flex" , alignItems:"center",gap:"10px"}} >
+                <div >
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       name="expirydate"
                       value={dayjs(values.expirydate)}
+                      disablePast                  
                       onChange={(date) => setFieldValue("expirydate", date)}
                       onBlur={() => setTouched({ ...touched, expirydate: true })}      
                       sx={{ width: "240px", padding: "10px" }}
                     />
                   </LocalizationProvider>
+                  <Errorhandle  touched={touched} errors={errors} fieldName="expirydate"/>
                 </div>
-                <Errorhandle  touched={touched} errors={errors} fieldName="expirydate"/>
+              
                 <div>
                   <TextField
                     className="mui-input"
@@ -319,11 +356,20 @@ const Checkout = () => {
                     placeholder="Card Security Code"
                     onBlur={()=>setTouched({...touched,creditcode:true})}
                   />
+                  <Errorhandle  touched={touched} errors={errors} fieldName="creditcode"/>
                 </div>
-                <Errorhandle  touched={touched} errors={errors} fieldName="creditcode"/>
+               
+             </div>   
+              </div>
+        </div>
+
+        <div className="checkout-btn" >
+                <button type="submit">Submit</button>
               </div>
           </div>
+         
           </div>
+         
           </form>
           </div>
           <div
@@ -343,15 +389,15 @@ const Checkout = () => {
                   <>
                     <div>
                       <span>{data.productname}</span> <br></br>
-                      Quantity:-<span>{data.quantity}</span>
+                      Quantity:<span>{data.quantity}</span>
                       <br></br>
-                      Subtotal:-<span>{data.price}</span>
+                      Subtotal:<span>₹{data.price}</span>
                     </div>
                   </>
                 );
               })}
               <div className="total">
-                Total:-<span>{totalPrice}</span>
+                Total:<span>₹{totalPrice}</span>
               </div>
             </div>
           </div>

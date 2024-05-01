@@ -8,7 +8,6 @@ import { increment } from "../redux/action";
 import { useNavigate } from "react-router-dom";
 
 
-
 const Addtocart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,6 +48,10 @@ const Addtocart = () => {
   return (
     <>
       <div className="addcart-container">
+        <div style={{width:"100%",textAlign:"left",paddingLeft:"60px"}}>
+        <h1>My Shopping Cart</h1>
+        </div>
+<div style={{width:"80%",height:"100%",display:"flex",flexDirection:"column",justifyContent:"space-between"}}>
    <div className="addtocart">
         {alldata?.map((data) => {
           return (
@@ -94,7 +97,7 @@ const Addtocart = () => {
          <button onClick={()=>{navigate("/checkout")}}>Checkout</button>
       </div>
       </div>
-    
+      </div>
     </>
   );
 };
