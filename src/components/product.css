@@ -4,6 +4,7 @@ body {
 
   .product-input-field{
     display:flex;
+    height:100vh;
     gap:20px;
   }
 
@@ -23,10 +24,11 @@ body {
   }
 
   .secondhalf {
-     height:100vh;
-      display:flex;
-      margin:2px;
+    height:100vh;
+    display:flex;
+    margin:2px;
   }
+
 
  .sidediv{
   /* height: 100vh; */

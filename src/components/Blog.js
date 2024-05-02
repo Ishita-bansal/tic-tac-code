@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./blog.css";
-import img1 from "./images/game1.jpg";
+import img1 from "./images/game1.jpeg";
 import { app } from "../firebase";
 import {
   collection,

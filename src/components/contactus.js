@@ -130,7 +130,7 @@ function Contactus() {
         {/* <video autoPlay loop muted className="background-video">
           <source src={videos} type="video/mp4" />
         </video> */}
-        <img src={contactimg} alt="img" width="100%" height="565vh"/>
+        {/* <img src={contactimg} alt="img" width="100%" style={{height:'60vh'}}/> */}
         <div className="mainDiv-content">
           <h1 className="anim" style={{ textTransform: "uppercase" }}>
             {reciveData[0]?.heading}

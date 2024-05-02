@@ -114,6 +114,12 @@ function Signup() {
                   onChange={(e) => setFieldValue("email", e.target.value)}
                   onBlur={() => setTouched({ ...touched, email: true })}
                   placeholder="Email"
+                  style={{ width:"100%",
+                    background:"transparent",
+                    border:"0",
+                    outline:"0",
+                    padding:"18px",
+                    fontSize:"17px"}}
                 />
               </div>
               <Errorhandle  touched={touched} errors={errors} fieldName="email"/>

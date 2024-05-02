@@ -54,7 +54,7 @@ console.log("-=-=--=-==--==",reciveData[0]?.title1);
         {/* <video autoPlay loop muted className="background-video">
         <source src={video} type="video/mp4" />
       </video> */}
-      < img src={mainimg} alt="img" width="100%" height="70%"/>
+      < img src={mainimg} alt="img" width="100%" style={{height:'80vh'}}/>
         <div className="hero-content">
           <h1 className="anim" style={{ textTransform: "capitalize" }}>
             {reciveData[0]?.title1}

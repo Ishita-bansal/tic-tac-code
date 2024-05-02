@@ -53,7 +53,7 @@
     align-items: center;
 }
 
-.register-input-fields input[type=text],input[type=email],input[type=password]{
+.register-input-fields input[type=text],input[type=password]{
     width:100%;
     background:transparent;
     border:0;

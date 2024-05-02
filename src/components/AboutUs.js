@@ -9,7 +9,7 @@ import { EffectCoverflow, Pagination } from 'swiper/modules';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./style.css";
 // import Carousel from 'react-bootstrap/Carousel';
-import back1 from "./images/game1.jpg";
+import back1 from "./images/game1.jpeg";
 import back2 from "./images/game2.jpeg";
 import back3 from "./images/game3.jpeg";
 import img4 from "./images/bday1.jpeg";
