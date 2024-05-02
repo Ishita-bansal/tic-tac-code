@@ -4,6 +4,7 @@ import video from "./images/tictacs.mp4";
 import img1 from "./images/home1.jpeg";
 import img2 from "./images/home2.jpeg";
 import img3 from "./images/home3.jpeg";
+import mainimg from "./images/herobackground.jpeg"
 import { app } from "../firebase";
 import {
   collection,
@@ -53,6 +54,7 @@ console.log("-=-=--=-==--==",reciveData[0]?.title1);
         {/* <video autoPlay loop muted className="background-video">
         <source src={video} type="video/mp4" />
       </video> */}
+      < img src={mainimg} alt="img" width="100%" height="70%"/>
         <div className="hero-content">
           <h1 className="anim" style={{ textTransform: "capitalize" }}>
             {reciveData[0]?.title1}

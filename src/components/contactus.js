@@ -9,7 +9,8 @@ import { useState, useEffect } from "react";
 import "./contactus.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import videos from "./images/tictacscontact.mp4";
-import {
+import contactimg from "./images/contactbackground.jpeg";
+ import {
   faEnvelope,
   faGlobe,
   faPhone,
@@ -129,6 +130,7 @@ function Contactus() {
         {/* <video autoPlay loop muted className="background-video">
           <source src={videos} type="video/mp4" />
         </video> */}
+        <img src={contactimg} alt="img" width="100%" height="565vh"/>
         <div className="mainDiv-content">
           <h1 className="anim" style={{ textTransform: "uppercase" }}>
             {reciveData[0]?.heading}
