@@ -22,8 +22,12 @@ const firestore = getFirestore(app);
 
 function Footer() {
   const [reciveData, setReciveData] = useState([]);
+  const emailAddress = 'vidhi@gmail.com';
 
 
+  const handleEmailButtonClick = () => {
+    window.location.href = `mailto:${emailAddress}`;
+  };
   const getdocument = async () => {
     try {
       const collectionRef = collection(firestore, "footer");
@@ -146,10 +150,10 @@ function Footer() {
       <div class="separator"></div>
       <div class="copyright">
         <div class="icons">
-          <button className="footerbtn">
+          <button className="footerbtn" >
             <FontAwesomeIcon icon={faGlobe} />
           </button>
-          <button className="footerbtn">
+          <button className="footerbtn" onClick={handleEmailButtonClick}>
             <FontAwesomeIcon icon={faEnvelope} />
           </button>
           <button className="footerbtn">

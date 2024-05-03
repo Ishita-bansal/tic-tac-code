@@ -5,12 +5,12 @@ import * as yup from "yup";
 import { Formik, useFormik } from "formik";
 // import connect from "./images/contact.jpg";
 import connect from "./images/soon.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef  } from "react";
 import "./contactus.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import videos from "./images/tictacscontact.mp4";
 import contactimg from "./images/contactbackground.jpeg";
- import {
+  import {
   faEnvelope,
   faGlobe,
   faPhone,
@@ -25,6 +25,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
+import emailjs from 'emailjs-com';
 const firestore = getFirestore(app);
 
 
@@ -37,6 +38,7 @@ const initailValue = {
   email: "",
   phonenumber: "",
   message: "",
+  address:""
 };
 const schema = yup.object({
   fullname: yup
@@ -51,19 +53,33 @@ const schema = yup.object({
     .string()
     .matches(emailRegExp, "Email is not valid")
     .required("Required*"),
+  address:yup.string().max(20,"Address must be of 20 characters").required("Required*"),
   message: yup
     .string()
-    .max(40, "message must be less than of 40 characters")
+    .max(70, "message must be less than of 40 characters")
     .required("Required*"),
 });
 
-
 function Contactus() {
-  
- 
+  // const emailRef = useRef();
+  // const nameRef = useRef();
+  // const addressRef = useRef();
+  // const phoneRef = useRef();
   const [reciveData, setReciveData] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  const form = useRef();
+  const emailAddress = 'Tictacs@gmail.Com';
 
+  const phoneNumber = 9678765456;
 
+  const handleEmailButtonClick = () => {
+    window.location.href = `mailto:${emailAddress}`;
+  };
+
+  const handlePhoneButtonClick = () => {
+    window.location.href = `tel:${phoneNumber}`;
+  };
+ 
   const getdocument = async () => {
     try {
       const collectionRef = collection(firestore, "contactus");
@@ -97,6 +113,7 @@ function Contactus() {
         fullname: values.fullname,
         email: values.email,
         phonenumber: values.phonenumber,
+        address:values.address,
        message: values.message,
       });
       resetForm();
@@ -107,11 +124,89 @@ function Contactus() {
     }
   
 
-  console.log("r==-=--=-=--==--==--=-=-=-=-=--=uwefuefhs",reciveData);
+  // console.log("r==-=--=-=--==--==--=-=-=-=-=--=uwefuefhs",reciveData);
+
+  useEffect(() => emailjs.init("HxGIbyvJvWBNn-A7M"), []);
 
   const onSubmit = async (values, {resetForm}) => {
     console.log(values);
     await writeData();
+    console.log("Start email ")
+
+    emailjs.sendForm('service_72qztwj', 'template_901kkji', form.current, 'HxGIbyvJvWBNn-A7M')
+    .then((result) => {
+        console.log(result.text);
+        console.log("message sent!")
+    }, (error) => {
+        console.log(error.text);
+        console.log("error sending message, try again!")
+    });
+
+    // const serviceId = "service_72qztwj";
+    // const templateId = "template_901kkji";
+    // try {
+    //   setLoading(true);
+    //   await emailjs.send(serviceId, templateId, {
+    //    name: nameRef.current.value,
+    //     recipient: emailRef.current.value,
+    //     address: addressRef.current.value,
+    //     phoneNumber : phoneRef.current.value
+     
+    //   });
+    //   alert("email successfully sent check inbox");
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setLoading(false);
+    // }
+
+
+    // const templateParams = {
+    //   from_name: "bansalisha0192@gmail.com",
+    //   message: values.message,
+    //   email: values.email,
+    //   publicKey: "HxGIbyvJvWBNn-A7M",
+    //   // userId:"664654655665" // Add your public key here
+    // };
+  
+    // await emailjs
+    //   .sendForm("service_72qztwj", "template_901kkji", templateParams)
+    //   .then(
+    //     (result) => {
+    //       console.log("Email Send SUCCESS!", result.text);
+    //     },
+    //     (error) => {
+    //       console.log("FAILED...", error);
+    //     }
+    //   );
+
+
+
+    // await emailjs.send("service_72qztwj","template_901kkji","sqOgJqBSPvpKlWmoP" ,{
+    //   from_name: "bansalisha0192@gmail.com",
+    //   message: values.message,
+    //   email: values.email,
+    //   }).then(
+    //        (result) => {
+    //         console.log('Email Senf SUCCESS!',result.text);
+    //       },
+    //      (error) => {
+    //         console.log('FAILED...', error);
+    //        },
+    //     );
+    //     console.log("End  email ")
+         
+    // emailjs.sendForm('service_72qztwj', 'template_901kkji', form.current, {
+    //     publicKey: 'sqOgJqBSPvpKlWmoP',
+    //   })
+    //   .then(
+    //     (result) => {
+    //       console.log('SUCCESS!',result.text);
+    //     },
+    //     (error) => {
+    //       console.log('FAILED...', error);
+    //     },
+    //   );
   };
 
   const formik = useFormik({
@@ -176,21 +271,21 @@ function Contactus() {
               <div className="location">
                 <FontAwesomeIcon icon={faEnvelope} />
                 <a
-                  href="#"
-                  target="_blank"
+                    onClick={handleEmailButtonClick}
+                  
                   style={{ textTransform: "capitalize" }}
                 >
-                  {" "}
+               
                   {reciveData[0]?.emailhead}
                   <br></br>
                   {reciveData[0]?.email}
                 </a>
               </div>
-              <div className="location" s>
+              <div className="location" >
                 <FontAwesomeIcon icon={faPhone} />
                 <a
-                  href="#"
-                  target="_blank"
+                  onClick={handlePhoneButtonClick}
+                 
                   style={{ textTransform: "capitalize" }}
                 >
                   {reciveData[0]?.phonehead}
@@ -206,11 +301,12 @@ function Contactus() {
             <h1 style={{ textTransform: "capitalize" }}>
               {reciveData[0]?.formhead}
             </h1>
-            <form onSubmit={handleSubmit}>
+            <form ref={form} onSubmit={handleSubmit}>
               <div className="formitems">
                 <input
                   type="text"
                   name="fullname"
+               
                   value={values.fullname}
                   onChange={(e) => {
                     setFieldValue("fullname", e?.target?.value);
@@ -231,6 +327,7 @@ function Contactus() {
                 <input
                   type="number"
                   name="phonenumber"
+               
                   value={values.phonenumber}
                   onBlur={handleBlur}
                   onChange={ (e)=>{setFieldValue("phonenumber",e.target.value)}}
@@ -249,6 +346,7 @@ function Contactus() {
                 <input
                   type="email"
                   name="email"
+                 
                   values={values.email}
                   onBlur={handleBlur}
                   onChange={(e)=>{setFieldValue("email",e.target.value)}}
@@ -263,6 +361,29 @@ function Contactus() {
                   text
                 </p>
               )}
+
+             <div className="formitems">
+                <input
+                  type="text"
+                  name="address"
+               
+                  values={values.address}
+                  onBlur={handleBlur}
+                  onChange={(e)=>{setFieldValue("address",e.target.value)}}
+                  placeholder={reciveData[0]?.custaddress}
+                  
+                />
+              </div>
+              {touched.address &&  errors.address ? (
+                <p className="showerror">{errors.address}</p>
+              ) : (
+                <p className="showerror" style={{ visibility: "hidden" }}>
+                  text
+                </p>
+              )}
+
+
+
               <div className="formitems">
                 <textarea
                   width="184px"
@@ -283,7 +404,7 @@ function Contactus() {
                 </p>
               )}
               <div className="formbtn">
-                <button className="contactbtn" type="submit" style={{ textTransform: "capitalize" }}>
+                <button className="contactbtn" type="submit" style={{ textTransform: "capitalize" }} >
                   {reciveData[0]?.btntitle}
                 </button>
               </div>
@@ -291,7 +412,7 @@ function Contactus() {
           </div>
         </div>
       </div>
-      <div className="last-map" style={{ width:'50%',padding:"0px 50px" }}>
+      <div className="last-map" style={{ width:'100%'}}>
     <iframe
       title="Oh My Game! Location"
       src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d27445.75254619908!2d76.7026142!3d30.69817945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1713167424862!5m2!1sen!2sin"

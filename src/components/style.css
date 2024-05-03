@@ -135,7 +135,7 @@
     max-width: 1500px;
     position:absolute;
     top:30%;
-    left:30%;
+    left:35%;
     padding:20px;
     font-family: 'Poppins','sans-serif';
 }
@@ -265,6 +265,7 @@ padding:30px;
     border-radius:50%;
     background-color: #f2f2f248;
 }
+
 
 .page2{
     width:100%;

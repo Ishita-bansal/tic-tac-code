@@ -77,9 +77,9 @@ function Navbar(){
              <li className='nav-item'><Link className='customlink' to="/AboutUs" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav2}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/contactus" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav3}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/Blog" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav4}</Link></li>
-             <li className='nav-item'><Link className='customlink' to="/product" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav5}</Link></li>
+             {/* <li className='nav-item'><Link className='customlink' to="/product" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav5}</Link></li>
              <li className='nav-item'><Link className='customlink' to="/signup" style={{textTransform:"capitalize"}}>{reciveData[0]?.nav6}</Link></li>
-             <li className='nav-item'><Link className='customlink' to="/addtocart" style={{textTransform:"capitalize"}}><button style={{display:"flex",justifyContent:"center",alignItems:"center",padding:"10px",gap:"10px",width:"150px",height:"50px",backgroundColor:"#AAABBB",border:"none",outline:"none",borderRadius:"20px",color:"white"}}><FontAwesomeIcon style={{fontSize:"25px"}} icon={faCartShopping}/> <p style={{fontSize:"23px",fontWeight:"bolder",textAlign:"center",margin:"0"}}>Items:{data?.length}</p></button></Link></li>
+             <li className='nav-item'><Link className='customlink' to="/addtocart" style={{textTransform:"capitalize"}}><button style={{display:"flex",justifyContent:"center",alignItems:"center",padding:"10px",gap:"10px",width:"150px",height:"50px",backgroundColor:"#AAABBB",border:"none",outline:"none",borderRadius:"20px",color:"white"}}><FontAwesomeIcon style={{fontSize:"25px"}} icon={faCartShopping}/> <p style={{fontSize:"23px",fontWeight:"bolder",textAlign:"center",margin:"0"}}>Items:{data?.length}</p></button></Link></li> */}
              
             </ul>
            </nav>
